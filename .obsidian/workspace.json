@@ -1,0 +1,260 @@
+{
+  "main": {
+    "id": "18627e2be33707ce",
+    "type": "split",
+    "children": [
+      {
+        "id": "bace52cf063fea02",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "87d0f9caeb70166a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "AIOPS.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "AIOPS"
+            }
+          },
+          {
+            "id": "346260194d2bb5f0",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "notes/osi.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "osi"
+            }
+          },
+          {
+            "id": "019b0fbfe02a03a7",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "notes/osi.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "osi"
+            }
+          },
+          {
+            "id": "564cc1eb67635600",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "notes/mac-addresses.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "mac-addresses"
+            }
+          },
+          {
+            "id": "0a53076e6fd3d9c1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "IPV4.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "IPV4"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "4a7feb764102b0c5",
+    "type": "split",
+    "children": [
+      {
+        "id": "10171badae8f5575",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4b4d57bb6b1f4351",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "61413f6790391c95",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "6af9475a5c253885",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "642b7f65a4ff6e48",
+    "type": "split",
+    "children": [
+      {
+        "id": "b1e47508e0cedced",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "9e86c5e8cb72b009",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Welcome.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Welcome"
+            }
+          },
+          {
+            "id": "1c3870b87e3a34c1",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Welcome.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Welcome"
+            }
+          },
+          {
+            "id": "2fc6701e3e6f1d8a",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "6ae563fa2eab7557",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Welcome.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Welcome"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "0a53076e6fd3d9c1",
+  "lastOpenFiles": [
+    "notes/vlan.md~",
+    "notes/vlan.md",
+    "notes/1749211651-vlan.md",
+    "notes/adwanced_networking.md~",
+    "notes/networking.md~",
+    "notes/adwanced_networking.md",
+    "notes/adwanced_networking",
+    "notes/1749211469-adwansednetworking.md",
+    "notes/1749211469-adwansednetworking.md~",
+    "IPV4.md",
+    "notes/collision-and-broadcast-domains.md~",
+    "notes/collision-and-broadcast-domains.md",
+    "notes/network-devices.md~",
+    "notes/network-devices.md",
+    "notes/broadcast-patterns.md~",
+    "IPV4.md~",
+    "notes/broadcast-patterns.md",
+    "notes/mac-addresses.md~",
+    "notes/mac-addresses.md",
+    "notes/osi.md",
+    "notes/networking.md",
+    "AIOPS.md",
+    "notes/1749188374-mac-addresses.md~",
+    "Terminologies.md",
+    "notes/1749185687-basic.md",
+    "notes/1749185714-adwanced.md",
+    "notes/1749185605-networking.md",
+    "Monitor.md",
+    "notes/2025-06-05.md"
+  ]
+}
