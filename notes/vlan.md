@@ -25,8 +25,10 @@ tags: []
 # Type of VLAN
 
 # How they are identified
+- *By frame tagging* #frame_tagging
 - Trunk Link is the link that comes to the vlan 
-- it has to have vlan identifier to tell vla where to transmit 
+- it has to have vlan identifier to tell vlan where to transmit 
 - it strips this metadata when it forwards to the connected host
-- also inserts when it  cumunicates with the trunk
+- also inserts when it  comunicates with the trunk
+
 

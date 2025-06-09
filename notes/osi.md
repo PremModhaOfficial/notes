@@ -2,10 +2,11 @@
 id: 1749186058-osi
 aliases:
   - osi
+  - OSI
 tags: []
 ---
 
-# osi
+# OSI
 
 It is a refrence model for machines to comunicate via Electronic means
 some machine may not exactly mimic the model

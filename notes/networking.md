@@ -10,3 +10,7 @@ tags: []
 [[osi|osi]]
 
 [[adwanced_networking]]
+
+[[ospf]]
+
+[[bits-bytes]]

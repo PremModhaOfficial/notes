@@ -21,7 +21,7 @@ has 2^24-2 host address
 
 0-127
 > [!NOTE] 127
-> 127 are private and not give to any devicce in the internet
+> 127 are private and not give to any device in the internet
 
 
 ## B
