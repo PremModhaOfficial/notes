@@ -1,8 +1,8 @@
 ---
 id: bits-bytes
 aliases:
-  - What
-tags: []
+  - bits-bytes
+tags:
 ---
 
 # What

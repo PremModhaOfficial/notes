@@ -3,6 +3,8 @@ id: IPV4
 aliases:
   - DNS
 tags: []
+created: 2025-06-12 18:14:18
+modified: 2025-06-12 18:14:23
 ---
 
 
@@ -14,15 +16,15 @@ www.google.com -> 8.8.8.8
 has classes a to e
 
 ## A
-designed for high number of users
+Designed for high number of users
 
 has 2^7-2 networks
 has 2^24-2 host address
 
+## Private
 0-127
 > [!NOTE] 127
 > 127 are private and not give to any device in the internet
-
 
 ## B
 fires two octates are used to refer to NETWORK
@@ -44,7 +46,7 @@ not used by the internet
 stored for research purposes
 
 
-#### Who gives the IPs 
+#### Who gives the IPs
 central autority called NIC-Network-Information-Center
 
 

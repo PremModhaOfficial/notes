@@ -5,6 +5,6 @@ tags: []
 ---
 
 
-When Motadata starts monitoring the device it is refered as a monitor
+When Motadata starts monitoring the device it is referred as a monitor
 
 Al the other devices are devices

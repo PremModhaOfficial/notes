@@ -8,28 +8,36 @@ tags: []
 
 # OSI
 
-It is a refrence model for machines to comunicate via Electronic means
+It is a reference model for machines to communicate via Electronic means
 some machine may not exactly mimic the model
 all of these layers talk to the layers adjacent to them
 
-all layers wrap and unwrap the data breaks into packets
+All layers wrap and unwrap the data breaks into packets
 
 
+
+![[./attachments/images/tci-ip.png]]
 
 # modern TCP/IP
 ## Application
 Http Protocol lives here
+
+talks between applications
 
 > [!FAQ] DATA
 > HTTP Request
 > GET https://getdata?page=1
 
 ## Presentation
+- Encrypt and decrypt the data
 ## Session
+- manages sessions
 ## Transport
 
+
 Port Numbers To track sessions
-> [!FAQ] DATA
+provides host-to-host communication
+> [!FAQ] DATA (broken into Segments)
 > TCP
 > Source-Port = 80
 > Destination-Port = 7268
@@ -38,6 +46,10 @@ Port Numbers To track sessions
 
 ## Network
 IP addresses
+- Provides connection between host on different networks (outside of LAN)
+- Path selection between different source and destination
+- [[network-devices#router|Router]] Works on this level
+
 > [!FAQ] DATA (broken into Segments)
 > SourceIP
 > DestinationIP
@@ -50,11 +62,11 @@ IP addresses
 > GET https://getdata?page=1
 ## DataLink
 
-responsible for delivery within the same subnet
+Responsible for delivery within the same subnet
 > [!FAQ] DATA (broken into Segments)
 >
-> Source-Mac       (can be of a router's if out of subnet)
-> Destination-Mac  (can be of a router's if out of subnet)
+> Source-Mac (can be of a router's if out of subnet)
+> Destination-Mac (can be of a router's if out of subnet)
 >
 > SourceIP
 > DestinationIP
@@ -66,11 +78,15 @@ responsible for delivery within the same subnet
 > HTTP Request
 > GET https://getdata?page=1
 >
-> (if ethernet) Ethernet Trailer
-### commont-protocols
-- ethernet
+> (if Ethernet) Ethernet Trailer
+### common-protocols
+- Ethernet
 - point to point protocol
 ## Physical
 
 
 [[mac-addresses|mac-addresses]]
+
+[[PDUs]]
+
+

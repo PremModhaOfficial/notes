@@ -1,0 +1,20 @@
+{
+	"nodes":[
+		{"id":"d212cbc8ac7941f6","type":"text","text":"Router 3","x":-370,"y":-303,"width":250,"height":60},
+		{"id":"5c795fd7fc322903","type":"text","text":"Router 3","x":140,"y":-303,"width":250,"height":60},
+		{"id":"6580861895c3b19e","type":"text","text":"Backbone (Area 0) Router 0","x":-120,"y":-160,"width":280,"height":120},
+		{"id":"154682288eef4924","type":"text","text":"Area 1","x":-370,"y":-500,"width":250,"height":60},
+		{"id":"df056ca6daa242ab","type":"text","text":"Area 2","x":140,"y":-500,"width":250,"height":60},
+		{"id":"b75bcd932eb85299","x":-695,"y":-440,"width":250,"height":153,"type":"text","text":"\nRouters summerize the Connected areas IPs"},
+		{"id":"812c3b8d62683f7f","type":"text","text":"\nRouters summerize the Connected areas IPs","x":460,"y":-440,"width":250,"height":153},
+		{"id":"44fe4ac13a87db96","x":-732,"y":-1240,"width":1442,"height":660,"type":"file","file":"notes/ospf-multiarea.md"}
+	],
+	"edges":[
+		{"id":"ce83ec532a72847a","fromNode":"6580861895c3b19e","fromSide":"left","toNode":"d212cbc8ac7941f6","toSide":"bottom"},
+		{"id":"ab36dade261aa2c2","fromNode":"6580861895c3b19e","fromSide":"right","toNode":"5c795fd7fc322903","toSide":"bottom"},
+		{"id":"cb2ee8599570a68a","fromNode":"5c795fd7fc322903","fromSide":"top","toNode":"df056ca6daa242ab","toSide":"bottom"},
+		{"id":"50f5542ff0da2acc","fromNode":"d212cbc8ac7941f6","fromSide":"top","toNode":"154682288eef4924","toSide":"bottom"},
+		{"id":"0f5dd76614851408","fromNode":"b75bcd932eb85299","fromSide":"right","toNode":"d212cbc8ac7941f6","toSide":"left"},
+		{"id":"e1140475d3996b0d","fromNode":"812c3b8d62683f7f","fromSide":"bottom","toNode":"5c795fd7fc322903","toSide":"right"}
+	]
+}

@@ -51,3 +51,4 @@ tags: []
 ### Problem: in case of change in multipoint broadcast-storm can occur
 - *Solution*: make a Designated routers (DR) and backup-DR (BDR) using automated election using router id and priorities
 
+[[ospf-multiarea]]
