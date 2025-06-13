@@ -2,6 +2,8 @@
 id: Terminologies
 aliases: []
 tags: []
+created: 2025-06-13 18:38:15
+modified: 2025-06-13 18:38:15
 ---
 
 > [!FAQ] Monitor

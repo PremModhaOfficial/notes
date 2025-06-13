@@ -26,17 +26,15 @@
             "id": "346260194d2bb5f0",
             "type": "leaf",
             "state": {
-              "type": "canvas",
+              "type": "markdown",
               "state": {
-                "file": "OSPF Multiarea.canvas",
-                "viewState": {
-                  "x": 10,
-                  "y": -270,
-                  "zoom": 0
-                }
+                "file": "notes/syslog.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
               },
-              "icon": "lucide-layout-dashboard",
-              "title": "OSPF Multiarea"
+              "icon": "lucide-file",
+              "title": "syslog"
             }
           }
         ],
@@ -190,12 +188,16 @@
   },
   "active": "346260194d2bb5f0",
   "lastOpenFiles": [
+    "notes/cisco-cli.md~",
+    "notes/cisco-cli.md",
+    "Terminologies.md~",
+    "notes/syslog.md~",
+    "OSPF Multiarea.canvas",
     "AIOPS.md~",
     "templates/atomic-note-template.md~",
     "notes/prem.md",
     "notes/prem.md~",
     "Prem.md",
-    "OSPF Multiarea.canvas",
     "Untitled.md",
     "notes/ipv6.md",
     "notes/con.md",
@@ -208,11 +210,8 @@
     "notes/news.md",
     "templates/ATOMIC.md~",
     "IPV4.md~",
-    "notes/dailies",
     "templates/ATOMIC.md",
-    "templates",
     "notes/ospf-multiarea.md",
-    "notes/network-address-translation.md~",
     "notes/network-address-translation.md",
     "notes/virtual-router-redundancy-protocol.md",
     "notes/virtual-router-redundancy-protocal.md",
@@ -227,7 +226,6 @@
     "AIOPS.md",
     "notes/osi.md",
     "Screenshot from 2025-06-12 11-17-03.png",
-    "notes/mac-addresses.md",
     "attachments/images/tci-ip.png"
   ]
 }

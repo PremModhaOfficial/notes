@@ -1,20 +1,20 @@
 ---
-id: prem
+id: cisco-cli
 aliases:
-  - prem
+  - cisco-cli
 tags:
-  - topic/premmmmmm
-  - concept/mmmm
-  - source/mmmm
-created: 2025-06-12 18:51:53
-modified: 2025-06-12 18:52:01
+  - topic/advanced-networking
+  - concept/cisco-cli
+  - source/udemy
+created: 2025-06-13 18:40:01
+modified: 2025-06-13 19:20:21
 status:
   - #draft
 type:
   - #atomic-note
 ---
 
-# prem
+# cisco-cli
 ## 🎯 Core Concept
 
 
