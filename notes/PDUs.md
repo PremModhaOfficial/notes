@@ -1,9 +1,13 @@
 ---
-id: PDUs
-aliases: []
+id: PDU
+aliases:
+  - PDU
 tags: []
+created: 2025-06-16 11:54:03
+modified: 2025-06-16 14:29:25
 ---
 
+# PDU
 
 ## what
 PDU = Protocol data units

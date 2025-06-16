@@ -4,7 +4,7 @@ aliases:
   - DNS
 tags: []
 created: 2025-06-12 18:14:18
-modified: 2025-06-12 18:14:23
+modified: 2025-06-16 14:03:11
 ---
 
 
@@ -48,6 +48,7 @@ stored for research purposes
 
 #### Who gives the IPs
 central autority called NIC-Network-Information-Center
+
 
 
 [[broadcast-patterns|next]]

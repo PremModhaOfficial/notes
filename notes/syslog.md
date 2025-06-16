@@ -7,7 +7,7 @@ tags:
   - concept/syslog
   - source/motadata/academy
 created: 2025-06-13 17:44:01
-modified: 2025-06-13 18:36:08
+modified: 2025-06-13 19:24:58
 status:
   - #draft
 type:
@@ -32,7 +32,7 @@ type:
 
 ## ❓ Knowledge Gaps & Next Steps
 **What I don't fully understand yet:**
--  [[cisco-ios]]
+-  [[cisco-cli]]
 
 ---
 

@@ -1,23 +1,23 @@
 ---
-id: con
+id: network-layer
 aliases:
-  - con
-tags: []
-created: 2025-06-12 18:38:22
-modified: 2025-06-12 18:38:22
+  - Network-Layer
+tags:
+  - topic/networking
+  - concept/layer-3
+  - source/udemy
+created: 2025-06-16 15:15:25
+modified: 2025-06-16 16:36:32
+status:
+  - #draft
+type:
+  - #atomic-note
 ---
 
-# con
-# con
-
-**Created:** 2025-06-12 18:38:22 | **Type:** #atomic-note | **Status:** #draft
-
-**Tags:** #topic/ #concept/ #source/
-
----
-
+# Network-Layer
 ## 🎯 Core Concept
-
+  - Communication to hosts outside of a lan
+  - Path selection
 
 
 ## 🧠 Why This Matters
@@ -26,31 +26,15 @@ modified: 2025-06-12 18:38:22
 **Long-term value:** 
 
 ## 🔗 Connections & Context
-**Builds on:** [[]] 
-**Relates to:** [[]] [[]] 
-**Leads to:** [[]] 
-**Contradicts/Tensions:** [[]] 
+**Builds on:** [[network-devices]] [[osi]]
+**Relates to:** [[networking]]
 
-## 📝 Deep Processing Questions
-1. **How would I explain this to a 12-year-old?**
-   
-2. **What's a concrete example or analogy?**
-   
-3. **What would happen if this weren't true?**
-   
-4. **How does this change my thinking about X?**
 
-## 🔧 Application & Use Cases
-**Immediate applications:**
-- 
-
-**Future scenarios where this applies:**
-- 
-
-**Action items spawned:**
-- [ ] 
 
 ## ❓ Knowledge Gaps & Next Steps
+
+#knowledge_gap/can
+
 **What I don't fully understand yet:**
 - 
 
@@ -92,4 +76,3 @@ modified: 2025-06-12 18:38:22
 **After first review:** 
 
 **Refined understanding:**
-

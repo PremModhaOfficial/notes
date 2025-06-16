@@ -4,17 +4,17 @@ aliases:
   - osi
   - OSI
 tags: []
+created: 2025-06-16 15:17:00
+modified: 2025-06-16 15:17:01
 ---
 
 # OSI
 
-It is a reference model for machines to communicate via Electronic means
+- [ ] It is a reference model for machines to communicate via Electronic means
 some machine may not exactly mimic the model
 all of these layers talk to the layers adjacent to them
 
 All layers wrap and unwrap the data breaks into packets
-
-
 
 ![[./attachments/images/tci-ip.png]]
 

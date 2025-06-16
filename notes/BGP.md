@@ -3,11 +3,14 @@ id: BGP
 aliases:
   - show ip bgp summary
 tags: []
+created: 2025-06-16 14:25:42
+modified: 2025-06-16 17:43:56
 ---
 
 ## [[autonomous-systems|Autonomous Systems]]
 
-## [[IGP]] & [[EGP]]
+
+## [[igp]] and [[egp]]
 
 ## basic-bgp-features
 - open standard

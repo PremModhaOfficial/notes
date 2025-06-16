@@ -3,6 +3,8 @@ id: 1749188374-mac-addresses
 aliases:
   - mac-addresses
 tags: []
+created: 2025-06-16 11:29:38
+modified: 2025-06-16 11:29:38
 ---
 
 # mac-addresses
@@ -21,3 +23,6 @@ manufacturer assignes this number as a serial number
 last six are NIC (d4-e5-f6)
 
 [[IPV4]]
+
+
+

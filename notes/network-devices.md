@@ -4,11 +4,13 @@ aliases:
   - diffrent devices works with diffrent layers in #osi model
 tags:
   - osi
+created: 2025-06-16 11:41:24
+modified: 2025-06-16 11:41:24
 ---
 
 # diffrent devices works with diffrent layers in #osi model
 
-## repeater
+## Repeater
 - 2 port device that works on physical layer
 repeats the signal from a node to another node
 helps fight attenuation over extended transmission
