@@ -1,24 +1,27 @@
 ---
-id: {{title}}
+id: pillars-of-observability
 aliases:
-  - {{title}}
+  - Pillars-Of-Observability
 tags:
-  - topic/{{topic}}
-  - concept/{{concept}}
-  - source/{{source}}
-created: {{timestamp}} 
-type: 
-  - #atomic-note 
-status: 
+  - topic/Observability
+  - concept/dev-ops
+  - source/udemy
+created: 2025-06-17 11:00:03
+modified: 2025-06-17 11:35:28
+status:
   - #draft
-
-
+type:
+  - #atomic-note
 ---
 
-# {{title}}
+# Pillars-Of-Observability
 ## 🎯 Core Concept
-
-
+### How To Use DSA concepts to Make something Observable?
+1. [[logs]]
+2. [[metric]]
+3. [[traces]]
+4. [[profiles]]
+5. [[Binary Introspection]]
 
 ## 🧠 Why This Matters
 **Personal relevance:** 
@@ -26,7 +29,7 @@ status:
 **Long-term value:** 
 
 ## 🔗 Connections & Context
-**Builds on:** [[]] 
+**Builds on:** [[Observability]] 
 **Relates to:** [[]] [[]] 
 **Leads to:** [[]] 
 **Contradicts/Tensions:** [[]] 

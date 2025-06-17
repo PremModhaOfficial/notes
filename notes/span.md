@@ -1,23 +1,32 @@
 ---
-id: {{title}}
+id: span
 aliases:
-  - {{title}}
+  - Span
 tags:
-  - topic/{{topic}}
-  - concept/{{concept}}
-  - source/{{source}}
-created: {{timestamp}} 
-type: 
-  - #atomic-note 
-status: 
+  - topic/traces
+  - concept/observability
+  - source/udemy
+created: 2025-06-17 18:24:37
+modified: 2025-06-17 18:30:23
+status:
   - #draft
-
-
+type:
+  - #atomic-note
 ---
 
-# {{title}}
+# Span
 ## 🎯 Core Concept
 
+- Reprecent a single oparation within trace
+```TRACE
+START:
+END:
+NAME:
+```
+
+## where have i Seen this
+   1. in [[encore]] where they showd me the Lifecycle of the request
+     a. how much time the request took to prosses and breaks it into db query and waiting etc
 
 
 ## 🧠 Why This Matters
@@ -35,7 +44,6 @@ status:
 1. **How would I explain this to a 12-year-old?**
    
 2. **What's a concrete example or analogy?**
-   
 3. **What would happen if this weren't true?**
    
 4. **How do this change my thinking about X?**

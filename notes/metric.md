@@ -1,21 +1,20 @@
 ---
-id: {{title}}
+id: metric
 aliases:
-  - {{title}}
+  - Metric
 tags:
-  - topic/{{topic}}
-  - concept/{{concept}}
-  - source/{{source}}
-created: {{timestamp}} 
-type: 
-  - #atomic-note 
-status: 
+  - topic/Observability
+  - concept/devops
+  - source/udemy
+created: 2025-06-17 11:30:54
+modified: 2025-06-17 11:30:57
+status:
   - #draft
-
-
+type:
+  - #atomic-note
 ---
 
-# {{title}}
+# Metric
 ## 🎯 Core Concept
 
 
