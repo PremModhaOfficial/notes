@@ -2,20 +2,21 @@
 id: observability
 aliases:
   - Observability
+  - observability
 tags:
   - topic/dev-ops
   - concept/observability
   - source/udemy
   - telemetry
 created: 2025-06-16 18:06:42
-modified: 2025-06-17 10:58:41
+modified: 2025-06-18 10:24:26
 status:
   - #draft
 type:
   - #atomic-note
 ---
 
-# Observability
+# observability
 ## 🎯 Core Concept #trait
 ### What does it mean be observable?
 > [!NOTE] Definition

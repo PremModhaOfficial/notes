@@ -9,7 +9,7 @@ tags:
   - concept/devops
   - source/udemy
 created: 2025-06-17 11:34:39
-modified: 2025-06-17 18:24:02
+modified: 2025-06-18 10:40:27
 status:
   - #draft
 type:
@@ -51,21 +51,25 @@ type:
 ### prosses Execution (PRIMARILY THIS)
 - Prosses is waiting on something completed this way / stopped that way etc
 
+## technicaly what is trace 
+
+> [!FAQ] Definition
+> A direced acyclic graph where the edges between [[span|spans]] are discribed parent-child relations
+> --OpenTelemetry [[observability#Telemetry]]
+
+A trace may be displayed as a sequance of this nodes (spans) for a given request
 
 
 ## 🔗 Connections & Context
-**Builds on:** [[observability]] 
+**Builds on:** [[observability]] [[span]] 
 **Relates to:** [[logs]] [[metric]] 
 **Leads to:** [[span]] 
 **Contradicts/Tensions:** [[]] 
 
 ## 📝 Deep Processing Questions
 1. **How would I explain this to a 12-year-old?**
-   
 2. **What's a concrete example or analogy?**
-   
 3. **What would happen if this weren't true?**
-   
 4. **How do this change my thinking about X?**
 
 ## 🔧 Application & Use Cases
