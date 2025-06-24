@@ -5,7 +5,7 @@ aliases:
 tags:
   - osi
 created: 2025-06-16 11:41:24
-modified: 2025-06-16 11:41:24
+modified: 2025-06-23 15:08:02
 ---
 
 # diffrent devices works with diffrent layers in #osi model

@@ -8,6 +8,7 @@ public class AIQuestion implements Question {
 	@Override
 	public void prosses() {
 		exeuteAIQuestion();
+		System.out.println("AIQuestion.prosses()");
 	}
 
 }

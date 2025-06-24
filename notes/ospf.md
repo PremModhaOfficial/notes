@@ -3,13 +3,14 @@ id: ospf
 aliases:
   - OPEN Shortest Path First
 tags: []
+created: 2025-06-23 14:45:04
+modified: 2025-06-25 16:14:15
 ---
 
 
 # OPEN Shortest Path First
-
 ## Why is ospf
-- To learn the routs 
+- To learn the routs and best path
 
 ## what is ospf
 - Routing protocol widely available in almost every router
@@ -24,7 +25,7 @@ tags: []
 
 ## Deeper Depth
 ### DOWN State
-- Become Neighbours
+- Becme Neighbours
   1. Choose a router id (RID) (IPv4)
   2. IP assignment
     - Manual assigned
@@ -41,11 +42,17 @@ tags: []
 - Share LSDB info
 - Choose Best routs
 
-### INTI State
+### Down State
+### INIT State
 - Router 2 is now in init stage
 - Send the message with Neighbours: \[1.1.1.1\] to 1
 - 1 gets the message and gets promoted to 2-way stage
 - now router 1 also send the message with know Neighbours: \[2.2.2.2\]
+### 2-Way
+
+
+## Sates Of Routers Neighbour Adjacency
+
 
 
 ### Problem: in case of change in multipoint broadcast-storm can occur

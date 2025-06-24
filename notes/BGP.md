@@ -4,7 +4,7 @@ aliases:
   - show ip bgp summary
 tags: []
 created: 2025-06-16 14:25:42
-modified: 2025-06-16 17:43:56
+modified: 2025-06-24 17:08:41
 ---
 
 ## [[autonomous-systems|Autonomous Systems]]
@@ -12,7 +12,7 @@ modified: 2025-06-16 17:43:56
 
 ## [[igp]] and [[egp]]
 
-## basic-bgp-features
+## basic features of BGP
 - open standard
 - Application layer protocol (TCP 179)
 - exterior Gateway protocol

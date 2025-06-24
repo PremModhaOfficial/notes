@@ -4,6 +4,8 @@ aliases:
   - Spanning Tree Protocol
   - Redundacy is good
 tags: []
+created: 2025-06-20 18:33:42
+modified: 2025-06-20 18:50:59
 ---
 
 # Redundacy is good
@@ -11,7 +13,15 @@ tags: []
    - To prevent total loss of cimunication we add redundant links in our networks.
    - but because of redundant connections a broadcast may find devicce with multiple ways
    - or worse may find a circular path in witch it keeps repeating (#braodcast-storm) and networks goes down
+   - mac-table instability
+
+# bridging loop solutions
+- Remove Redundacy
+- disable liks temporarily by manualy shutdown or STP
+
 # Spanning Tree Protocol
+
+
 *Solution*
  - we just mark the redundant link as backup link and only use incase of main link failear
 ## How To do that
@@ -24,11 +34,17 @@ tags: []
  - all the switches find best way (path) to reach the root bridge
  - all other paths are marked as redundant and will be avoided untill necessary
 
-#### Root Bridge Election
-  - one with the higest Priority (Every Switch has MAX_VALUE=32768 by default) OR lowest mac address
+#### Root Bridge 
+##### Election
+  - one with the lowest Priority (Every Switch has MAX_VALUE=32768 by default) OR lowest mac address
   - this make it tie by default and macs are compared and older switches win
   - One with the lowest bridge_id is the root bridge (bridge_id=Bridge-Priority.concat(MAC))
+  - each switch thinks it is root until it gets a superrior [[bpdu]] 
+
   - why have the Bridge-Priority High By default?
     because newer devices have better features and performance but has higher MAC thus you can manualy chage the root device by lowering Bridge-Priority
+
+
+
 [[port_roles]]
 [[routing]]

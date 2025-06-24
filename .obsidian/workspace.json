@@ -4,25 +4,26 @@
     "type": "split",
     "children": [
       {
-        "id": "212dbaf9d34cfed6",
+        "id": "679c14e4d2cc5866",
         "type": "tabs",
         "children": [
           {
-            "id": "ed98037019ca3db7",
+            "id": "ce57c23350750f75",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "notes/broadcast-patterns.md",
+                "file": "notes/metric.md",
                 "mode": "source",
                 "source": false,
                 "backlinks": false
               },
               "icon": "lucide-file",
-              "title": "broadcast-patterns"
+              "title": "metric"
             }
           }
-        ]
+        ],
+        "stacked": true
       }
     ],
     "direction": "vertical"
@@ -54,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#source/udemy",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -75,7 +76,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -95,7 +97,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "notes/broadcast-patterns.md",
+                "file": "notes/routing-protocols.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -105,7 +107,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for broadcast-patterns"
+              "title": "Backlinks for routing-protocols"
             }
           },
           {
@@ -156,7 +158,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -165,52 +168,60 @@
       "canvas:Create new canvas": false,
       "daily-notes:Open today's daily note": false,
       "templates:Insert template": false,
-      "command-palette:Open command palette": false
+      "command-palette:Open command palette": false,
+      "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "ed98037019ca3db7",
+  "active": "ce57c23350750f75",
   "lastOpenFiles": [
-    "IPV4.md",
-    "Monitor.md",
-    "OSPF Multiarea.canvas",
-    "Terminologies.md",
-    "Untitled.md",
-    "Untitled.canvas",
-    "2025-06-19.md",
-    "adapter.md",
-    "notes/protobufs.md",
-    "notes/attachments/images/tci-ip.png",
-    "notes/solid-principal.md",
-    "notes/observability.md",
-    "notes/metric.md~",
-    "notes/roi.md~",
-    "notes/roi.md",
-    "notes/protobufs.md~",
-    "notes/instrumentation.md~",
-    "notes/code-exaples/tracingExample/attributes.go~",
-    "notes/span.md~",
-    "notes/4913",
-    "notes/pillars-of-observability.md",
-    "notes/traces.md",
     "notes/span.md",
-    "notes/code-exaples/tracingExample/setup/setup.go~",
-    "notes/traces.md~",
-    "notes/ipv6.md",
-    "notes/attachments/images/knowladge-ecom-structure.png",
-    "notes/ethernet-frame.md",
-    "notes/con.md~",
-    "notes/network-layer.md",
-    "notes/ip-address.md",
-    "notes/lan-switching.md",
-    "notes/syslog.md",
-    "PDU.md",
-    "notes/cisco-cli.md",
-    "notes/prem.md",
-    "Prem.md",
-    "notes/con.md",
-    "notes/contitle.md",
-    "notes/titlecons.md",
-    "Screenshot from 2025-06-12 11-17-03.png",
-    "attachments/images/tci-ip.png"
+    "notes/BPDU.md",
+    "bc_test.md",
+    "notes/awk.md",
+    "notes/arp.md",
+    "notes/adwanced_networking.md",
+    "notes/tlvs.md",
+    "notes/singleton.md",
+    "notes/creational-patterns.md",
+    "Excalidraw/Drawing 2025-07-10 15.06.34.excalidraw.md",
+    "Excalidraw/java-lifetime.md",
+    "Excalidraw/JVM.excalidraw.md",
+    "Excalidraw/java-lifetime.md~",
+    "Excalidraw/4913",
+    "notes/java-lang.md~",
+    "notes/java.md~",
+    "notes/cdp.md",
+    "notes/dynamic-compilation.md~",
+    "https:/claude.ai/share",
+    "https:/claude.ai",
+    "https:",
+    "notes/dynamic-compilation.md",
+    "notes/broadcast-patterns.md",
+    "Excalidraw",
+    "Untitled.canvas",
+    "JVM-arch.canvas",
+    "notes/jvm.md",
+    "notes/process-controll-block.md",
+    "notes/process.md",
+    "notes/programes.md",
+    "notes/programes.md~",
+    "notes/problems-paradims.md",
+    "Hyprland/subprojects/udis86/README.md",
+    "Hyprland/subprojects/tracy/test/image.jpg",
+    "Hyprland/subprojects/tracy/manual/images/screenshot-lo.png",
+    "Hyprland/subprojects/tracy/manual/images/screenshot-hi.png",
+    "Hyprland/subprojects/tracy/manual/images/ryzen.png",
+    "Hyprland/subprojects/tracy/manual/icons/scroll.svg",
+    "Hyprland/subprojects/tracy/manual/icons/rmb.svg",
+    "Hyprland/subprojects/tracy/manual/icons/mouse.svg",
+    "Hyprland/subprojects/tracy/manual/icons/mmb.svg",
+    "Hyprland/subprojects/tracy/manual/icons/lmb.svg",
+    "Hyprland/subprojects/tracy/imgui/misc/freetype/README.md",
+    "Hyprland/subprojects/tracy/icon/icon.svg",
+    "Hyprland/subprojects/tracy/examples/ToyPathTracer/license.md",
+    "Hyprland/subprojects/tracy/README.md",
+    "Hyprland/subprojects/hyprland-protocols/README.md",
+    "Hyprland/docs/ISSUE_GUIDELINES.md",
+    "OSPF Multiarea.canvas"
   ]
 }

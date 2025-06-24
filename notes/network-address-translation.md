@@ -5,7 +5,7 @@ aliases:
   - nat
 tags: []
 created: 2025-06-16 11:27:17
-modified: 2025-06-16 18:05:43
+modified: 2025-06-26 18:30:47
 ---
 
 ## The Problem
@@ -42,5 +42,6 @@ modified: 2025-06-16 18:05:43
 - But you have to define the mappings manually
 
 
+[[dhcp]]
 
 [[IPV6]]

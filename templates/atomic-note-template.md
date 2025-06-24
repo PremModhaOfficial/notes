@@ -3,9 +3,9 @@ id: {{title}}
 aliases:
   - {{title}}
 tags:
-  - topic/{{topic}}
-  - concept/{{concept}}
-  - source/{{source}}
+  - #topic/{{topic}}
+  - #concept/{{concept}}
+  - #source/{{source}}
 created: {{timestamp}} 
 type: 
   - #atomic-note 

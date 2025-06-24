@@ -1,11 +1,11 @@
 ---
 id: 1749186058-osi
 aliases:
-  - osi
+  - [ ] osi
   - OSI
 tags: []
 created: 2025-06-16 15:17:00
-modified: 2025-06-16 15:17:01
+modified: 2025-06-27 10:33:58
 ---
 
 # OSI

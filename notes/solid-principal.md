@@ -4,7 +4,7 @@ aliases:
   - solid-principal
 tags: []
 created: 2025-06-19 12:14:01
-modified: 2025-06-19 15:19:23
+modified: 2025-06-20 16:43:34
 ---
 
 # solid-principal

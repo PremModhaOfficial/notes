@@ -7,7 +7,7 @@ tags:
   - concept/syslog
   - source/motadata/academy
 created: 2025-06-13 17:44:01
-modified: 2025-06-13 19:24:58
+modified: 2025-06-24 13:34:36
 status:
   - #draft
 type:
