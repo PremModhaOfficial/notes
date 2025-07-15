@@ -2,9 +2,10 @@
 id: java-lang
 aliases:
   - Java-Lang
-tags: []
+tags:
+  - #lang/java
 created: 2025-07-09 12:33:16
-modified: 2025-07-10 14:40:14
+modified: 2025-07-18 18:18:21
 ---
 
 # Java-Lang
@@ -12,11 +13,25 @@ modified: 2025-07-10 14:40:14
 [[java-variables|Variables]]
 [[java-statements|statements]]
 [[java-methods|Methods]]
-[[contractor|Contractor]]
+[[contractor#Primary Contractor|Contractor]]
 [[Control-Flow]]
 [[java-lifetime]]
+[[dotclass-file]]
+[[exception-handling]]
+
+[[java-keywords|keywords]]
 
 
+[[inheritance]]
+[[java-polymorphism|polymorphism]]
+[[incapsulation]]
+
+
+[[JAVA-Gotchas]]
+
+[java-gotchas](https://claude.ai/public/artifacts/c819ab0f-92fa-40fa-ae60-174s9c990bc6)
+https://claude.ai/public/artifacts/c819ab0f-92fa-40fa-ae60-17419c990bc6
+https://claude.ai/public/artifacts/c819ab0f-92fa-40fa-ae60-17419c990bc6
 # TODO: operator precedence
 # TODO: operator promotion
 # TODO: same-type operation rule

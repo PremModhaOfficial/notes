@@ -4,22 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "679c14e4d2cc5866",
+        "id": "ce126aeeae44541e",
         "type": "tabs",
         "children": [
           {
-            "id": "ce57c23350750f75",
+            "id": "d5da3ce900d3962b",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "excalidraw",
               "state": {
-                "file": "notes/metric.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": false
+                "file": "Excalidraw/JAVAStack.excalidraw.md"
               },
-              "icon": "lucide-file",
-              "title": "metric"
+              "icon": "excalidraw-icon",
+              "title": "JAVAStack.excalidraw"
             }
           }
         ],
@@ -55,7 +52,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#source/udemy",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -76,12 +73,12 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 340.5110321044922,
+    "collapsed": true
   },
   "right": {
     "id": "642b7f65a4ff6e48",
@@ -172,41 +169,48 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "ce57c23350750f75",
+  "active": "d5da3ce900d3962b",
   "lastOpenFiles": [
-    "notes/span.md",
-    "notes/BPDU.md",
-    "bc_test.md",
-    "notes/awk.md",
-    "notes/arp.md",
-    "notes/adwanced_networking.md",
-    "notes/tlvs.md",
-    "notes/singleton.md",
-    "notes/creational-patterns.md",
-    "Excalidraw/Drawing 2025-07-10 15.06.34.excalidraw.md",
-    "Excalidraw/java-lifetime.md",
+    "Excalidraw/JAVAStack.excalidraw.md",
+    "Excalidraw/GC.excalidraw.md",
+    "notes/exception-handling.md",
+    "Excalidraw/exceptions.excalidraw.md",
     "Excalidraw/JVM.excalidraw.md",
-    "Excalidraw/java-lifetime.md~",
-    "Excalidraw/4913",
+    "Excalidraw/Drawing 2025-07-10 15.06.34.excalidraw.md",
+    "OSPF Multiarea.canvas",
+    "IPV4.md",
+    "AIOPS.md",
     "notes/java-lang.md~",
-    "notes/java.md~",
-    "notes/cdp.md",
-    "notes/dynamic-compilation.md~",
-    "https:/claude.ai/share",
-    "https:/claude.ai",
-    "https:",
-    "notes/dynamic-compilation.md",
-    "notes/broadcast-patterns.md",
-    "Excalidraw",
-    "Untitled.canvas",
+    "notes/jvm-classloader.md~",
+    "notes/dotclass-file.md~",
+    "notes/java-classobject.md~",
+    "notes/jvm-method-area.md",
+    "Excalidraw/Drawing 2025-07-10 15.59.09.excalidraw.md",
+    "Excalidraw/Drawing 2025-07-14 10.57.55.excalidraw.md",
+    "notes/java-bytecode.md~",
+    "notes/java-bytecode.md",
+    "notes/dotclass-file.md",
+    "notes/jvm.md~",
+    "notes/jvm-classloader-sybsytem.md~",
+    "notes/java-lifetime.md",
+    "notes/jvm-classloader-sybsytem.md",
     "JVM-arch.canvas",
-    "notes/jvm.md",
-    "notes/process-controll-block.md",
-    "notes/process.md",
-    "notes/programes.md",
-    "notes/programes.md~",
-    "notes/problems-paradims.md",
-    "Hyprland/subprojects/udis86/README.md",
+    "notes/jvm-resolution.md~",
+    "Excalidraw/JVM.excalidraw.md~",
+    "notes/jvm-resolution.md",
+    "notes/jvm-preparation.md~",
+    "notes/jvm-preparation.md",
+    "notes/jvm-classloader.md",
+    "notes/attachments/images/jvm-classloader-ex.excalidraw.md",
+    "notes/java-classobject.md",
+    "Untitled 1.canvas",
+    "notes/mpstat.md",
+    "registers.md",
+    "notes/linux-commands.md",
+    "notes/lsblk.md",
+    "notes/metric.md",
+    "notes/span.md",
+    "Untitled.canvas",
     "Hyprland/subprojects/tracy/test/image.jpg",
     "Hyprland/subprojects/tracy/manual/images/screenshot-lo.png",
     "Hyprland/subprojects/tracy/manual/images/screenshot-hi.png",
@@ -216,12 +220,6 @@
     "Hyprland/subprojects/tracy/manual/icons/mouse.svg",
     "Hyprland/subprojects/tracy/manual/icons/mmb.svg",
     "Hyprland/subprojects/tracy/manual/icons/lmb.svg",
-    "Hyprland/subprojects/tracy/imgui/misc/freetype/README.md",
-    "Hyprland/subprojects/tracy/icon/icon.svg",
-    "Hyprland/subprojects/tracy/examples/ToyPathTracer/license.md",
-    "Hyprland/subprojects/tracy/README.md",
-    "Hyprland/subprojects/hyprland-protocols/README.md",
-    "Hyprland/docs/ISSUE_GUIDELINES.md",
-    "OSPF Multiarea.canvas"
+    "Hyprland/subprojects/tracy/icon/icon.svg"
   ]
 }

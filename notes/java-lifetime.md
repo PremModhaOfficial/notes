@@ -4,7 +4,7 @@ aliases:
   - Type LifeTime
 tags: []
 created: 2025-07-10 14:40:06
-modified: 2025-07-10 15:04:55
+modified: 2025-07-10 15:55:56
 ---
 
 # Type LifeTime
@@ -21,3 +21,8 @@ modified: 2025-07-10 15:04:55
 
 
 ## When a class is loaded??
+class loader is in `java.lang`
+
+
+
+[[jvm-classloader]]

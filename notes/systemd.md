@@ -4,7 +4,7 @@ aliases:
   - Systemd
 tags: []
 created: 2025-06-27 14:58:30
-modified: 2025-06-27 16:34:02f
+modified: 2025-07-23 18:35:21
 ---
 
 # Systemd

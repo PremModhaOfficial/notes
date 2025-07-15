@@ -2,9 +2,10 @@
 id: java-methods
 aliases:
   - Methods
-tags: []
+tags:
+  - #lang/java
 created: 2025-07-09 17:00:43
-modified: 2025-07-09 18:26:06
+modified: 2025-07-15 14:31:14
 ---
 
 # Methods

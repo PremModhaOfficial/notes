@@ -2,7 +2,8 @@
 id: java-statements
 aliases:
   - statements
-tags: []
+tags:
+  - #lang/java
 created: 2025-07-09 15:23:57
 modified: 2025-07-09 15:34:07
 ---

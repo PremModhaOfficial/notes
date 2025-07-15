@@ -3,9 +3,10 @@ id: java-variables
 aliases:
   - variables
   - Variables
-tags: []
+tags:
+  - #lang/java
 created: 2025-07-09 12:33:40
-modified: 2025-07-09 18:24:41
+modified: 2025-07-15 14:30:30
 ---
 
 # Variables
