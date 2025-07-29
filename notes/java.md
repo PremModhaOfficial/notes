@@ -7,7 +7,7 @@ tags:
   - #concept/java
   - #source/udemy
 created: 2025-07-09 10:41:30
-modified: 2025-07-09 12:33:16
+modified: 2025-07-24 15:32:29
 status:
   - #draft
 type:
@@ -20,7 +20,6 @@ type:
 - fast
 - safe
 - genral purpose
-
 ## JAVA SE
 - It is actualy just a list of specification but refered in diffrent way
 - Java SE specifications are implemenetd by diffrent providers like oracle's 
@@ -124,3 +123,21 @@ type:
 **After first review:** 
 
 **Refined understanding:**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

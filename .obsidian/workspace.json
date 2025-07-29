@@ -4,19 +4,17 @@
     "type": "split",
     "children": [
       {
-        "id": "ce126aeeae44541e",
+        "id": "ee2a8fb7f0f086e2",
         "type": "tabs",
         "children": [
           {
-            "id": "d5da3ce900d3962b",
+            "id": "135aaf7cdf0b4e12",
             "type": "leaf",
             "state": {
-              "type": "excalidraw",
-              "state": {
-                "file": "Excalidraw/JAVAStack.excalidraw.md"
-              },
-              "icon": "excalidraw-icon",
-              "title": "JAVAStack.excalidraw"
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
         ],
@@ -52,7 +50,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tag:#telemetry",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -73,7 +71,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -94,7 +93,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "notes/routing-protocols.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,21 +102,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for routing-protocols"
-            }
-          },
-          {
-            "id": "1c3870b87e3a34c1",
-            "type": "leaf",
-            "state": {
-              "type": "outgoing-link",
-              "state": {
-                "file": "notes/observability.md",
-                "linksCollapsed": false,
-                "unlinkedCollapsed": true
-              },
-              "icon": "links-going-out",
-              "title": "Outgoing links from observability"
+              "title": "Backlinks"
             }
           },
           {
@@ -150,6 +134,20 @@
               "icon": "lucide-list",
               "title": "Outline of Welcome"
             }
+          },
+          {
+            "id": "cbe460e057258a32",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "notes/arraylist-vs-linkedlist.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from arraylist-vs-linkedlist"
+            }
           }
         ]
       }
@@ -169,47 +167,47 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "d5da3ce900d3962b",
+  "active": "135aaf7cdf0b4e12",
   "lastOpenFiles": [
-    "Excalidraw/JAVAStack.excalidraw.md",
-    "Excalidraw/GC.excalidraw.md",
-    "notes/exception-handling.md",
-    "Excalidraw/exceptions.excalidraw.md",
-    "Excalidraw/JVM.excalidraw.md",
-    "Excalidraw/Drawing 2025-07-10 15.06.34.excalidraw.md",
+    "notes/observability.md",
+    "notes/java-queue.md",
+    "notes/java-Set.md~",
+    "notes/Java-HashSet.md~",
+    "notes/Java-Hashtable.md~",
+    "notes/saparate-chaining.md~",
+    "notes/open-addressing.md~",
+    "notes/open-addressing.md",
+    "notes/saparate-chaining.md",
+    "notes/Java-Hashtable.md",
+    "notes/java-collection.md~",
+    "notes/Java-ArrayDequeue.md~",
+    "notes/java-queue.md~",
+    "notes/blockingdeque.md~",
+    "notes/Java-BlockingQueue.md~",
+    "notes/blockingdeque.md",
+    "notes/Java-BlockingQueue.md",
+    "notes/Java-Stack.md",
+    "notes/Java-ArrayDequeue.md",
+    "ArrayDequeue.md",
+    "Excalidraw/LinkedHashSet.excalidraw.md",
+    "notes/Java-HashSet.md",
+    "notes/java-Set.md",
+    "Excalidraw/collection.excalidraw.md",
+    "Java-Cursors-Compared.md",
+    "notes/java-cursors.md",
+    "notes/arraylist-vs-linkedlist.md",
+    "notes/doublylinkedlist.md",
+    "notes/java-LinkedList.md",
+    "notes/java-Collections.md",
+    "notes/java-collection.md",
+    "notes/routing.md",
+    "notes/java-collections.md",
+    "java-collection.md",
+    "notes/java-list.md",
+    "notes/arraylist-vs-vector.md",
     "OSPF Multiarea.canvas",
-    "IPV4.md",
-    "AIOPS.md",
-    "notes/java-lang.md~",
-    "notes/jvm-classloader.md~",
-    "notes/dotclass-file.md~",
-    "notes/java-classobject.md~",
-    "notes/jvm-method-area.md",
-    "Excalidraw/Drawing 2025-07-10 15.59.09.excalidraw.md",
-    "Excalidraw/Drawing 2025-07-14 10.57.55.excalidraw.md",
-    "notes/java-bytecode.md~",
-    "notes/java-bytecode.md",
-    "notes/dotclass-file.md",
-    "notes/jvm.md~",
-    "notes/jvm-classloader-sybsytem.md~",
-    "notes/java-lifetime.md",
-    "notes/jvm-classloader-sybsytem.md",
     "JVM-arch.canvas",
-    "notes/jvm-resolution.md~",
-    "Excalidraw/JVM.excalidraw.md~",
-    "notes/jvm-resolution.md",
-    "notes/jvm-preparation.md~",
-    "notes/jvm-preparation.md",
-    "notes/jvm-classloader.md",
-    "notes/attachments/images/jvm-classloader-ex.excalidraw.md",
-    "notes/java-classobject.md",
     "Untitled 1.canvas",
-    "notes/mpstat.md",
-    "registers.md",
-    "notes/linux-commands.md",
-    "notes/lsblk.md",
-    "notes/metric.md",
-    "notes/span.md",
     "Untitled.canvas",
     "Hyprland/subprojects/tracy/test/image.jpg",
     "Hyprland/subprojects/tracy/manual/images/screenshot-lo.png",
