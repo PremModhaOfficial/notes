@@ -5,7 +5,7 @@ aliases:
   - Java-collection
 tags: []
 created: 2025-07-25 16:57:31
-modified: 2025-07-29 10:11:10
+modified: 2025-07-29 16:08:46
 ---
 
 
@@ -104,4 +104,8 @@ Implemented By:
 [[java-queue|queue]]
 
 
+[[Java-Map|Map]]
 [[Java-Hashtable|Hashtable]]
+
+
+

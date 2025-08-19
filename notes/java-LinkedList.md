@@ -6,7 +6,6 @@ tags:
   - Queue
   - LinkeList
   - List
-  - Stack
 created: 2025-07-25 17:29:25
 modified: 2025-07-29 10:32:27
 ---

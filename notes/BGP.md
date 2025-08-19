@@ -4,7 +4,7 @@ aliases:
   - show ip bgp summary
 tags: []
 created: 2025-06-16 14:25:42
-modified: 2025-06-24 17:08:41
+modified: 2025-08-06 12:27:48
 ---
 
 ## [[autonomous-systems|Autonomous Systems]]

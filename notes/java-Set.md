@@ -4,7 +4,7 @@ aliases:
   - Set
 tags: []
 created: 2025-07-28 16:20:18
-modified: 2025-07-29 12:46:40
+modified: 2025-07-29 13:55:54
 ---
 
 # Set
@@ -15,3 +15,6 @@ modified: 2025-07-29 12:46:40
 
 implemented by:
 - [[Java-HashSet#HashSet|HashSet]]
+- [[Java-LinkedHashSet#LinkedHashSet|LinkedHashSet]]
+- [[Java-SortedSet]]
+- [[Java-Navigable-Set]]

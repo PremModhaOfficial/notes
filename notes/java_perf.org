@@ -1,0 +1,70 @@
+#+title: Java Perf
+
+** Section 16: Using a profiler to analyse application performance
+*** Introducing Java Mission Control (JMC)
+*** Building the JMC binaries
+*** Running JMC and connecting to a VM
+*** Customising the overview tab
+*** The MBean Browser tab
+*** The System, Memory and Diagnostic Commands tabs
+*** Introducing our problem project
+*** Using the flight recorder
+*** Analyzing a flight recording
+*** Improving our application
+** Section 17: Assessing Performance
+*** Why benchmarking isn't straight forward.
+*** Setting up the code for benchmarking
+*** A simple approach to micro-benchmarking
+*** Adding in a warm-up period
+*** Comparing two code alternatives
+*** Using Macro-bencharmking
+** Section 18: Benchmarking with JMH
+*** Installing the JMH benchmarking tool
+*** Creating and running benchmarks
+*** Using different benchmark modes
+** Section 19: Performance and Benchmarking Exercise
+*** Instructions for exercise 1 (creating a flight recording)
+*** Walkthrough of the solution & setting up ready for the next challenge
+*** Instructions for exercise 2 (use JMH to macrobenchmark the project)
+*** Walkthrough of the solution - part 1 setting up the code
+*** Walkthrough of the solution - part 2 - integrating into JMH
+** Section 20: How Lists Work
+*** Why it's important to understand how the different List implementations work
+*** The 8 different list implementations
+*** The CopyOnWriteArrayList
+*** The ArrayList
+*** Specifying the initial size of an ArrayList
+*** The Vector
+*** The Stack
+*** The LinkedList
+*** Choosing the optimal list type
+*** Sorting lists
+** Section 21: How Maps Work
+*** How Hashmaps Work - part 1
+*** The role of the Hashcode
+*** How Hashmaps Work - part 2
+*** Specifying the initial size and factor of a HashMap
+*** HashMap Performance
+*** The rules for Hashcodes
+*** Generating and optimising the Hashcode method
+*** Optimising Hashmap Performance
+*** How The LinkedHashMap Works
+*** The HashTable and TreeMap
+** Section 22: Other Coding Choices
+*** Introduction to how we'll compare coding options
+*** Comparing primatives with objects
+*** Comparing BigDecimals with Doubles
+*** Using the StringBuilder
+*** Comparing loops and streams
+*** A note on logging
+** Section 23: GraalVM
+*** What is GraalVM?
+*** Installing GraalVM
+*** Using the Graal Virtual Machine
+*** Using the Graal Compiler
+*** Native image building with Graal
+*** Using the Graal experimental features within OpenJDK
+** Section 24: Using Other JVM Languages
+*** The principles of using other JVM Languages
+*** Looking at bytecode with javap
+*** Disassembling bytecode back to Java

@@ -18,3 +18,6 @@ modified: 2025-07-29 12:45:23
 # Methods
 - The Methods of the parent class is only 
 
+
+
+Childrens: [[linkedhashset]]
