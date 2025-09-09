@@ -2,5 +2,7 @@
   "baseFontSize": 22,
   "baseFontSizeAction": true,
   "nativeMenus": true,
-  "theme": "obsidian"
+  "theme": "obsidian",
+  "cssTheme": "",
+  "accentColor": ""
 }

@@ -4,17 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "ee2a8fb7f0f086e2",
+        "id": "40bbe898a01e645f",
         "type": "tabs",
         "children": [
           {
-            "id": "135aaf7cdf0b4e12",
+            "id": "c6a116359af73fba",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "notes/nats-core-messaging-patterns.md",
+                "mode": "source",
+                "source": false,
+                "backlinks": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "nats-core-messaging-patterns"
             }
           }
         ],
@@ -50,7 +55,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#telemetry",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -93,6 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "notes/nats-core-messaging-patterns.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +108,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for nats-core-messaging-patterns"
             }
           },
           {
@@ -153,11 +159,11 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
+      "bases:Create new base": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,
       "canvas:Create new canvas": false,
@@ -167,57 +173,57 @@
       "obsidian-excalidraw-plugin:New drawing": false
     }
   },
-  "active": "135aaf7cdf0b4e12",
+  "active": "c6a116359af73fba",
   "lastOpenFiles": [
-    "notes/observability.md",
-    "notes/java-queue.md",
-    "notes/java-Set.md~",
-    "notes/Java-HashSet.md~",
-    "notes/Java-Hashtable.md~",
-    "notes/saparate-chaining.md~",
-    "notes/open-addressing.md~",
-    "notes/open-addressing.md",
-    "notes/saparate-chaining.md",
-    "notes/Java-Hashtable.md",
-    "notes/java-collection.md~",
-    "notes/Java-ArrayDequeue.md~",
-    "notes/java-queue.md~",
-    "notes/blockingdeque.md~",
-    "notes/Java-BlockingQueue.md~",
-    "notes/blockingdeque.md",
-    "notes/Java-BlockingQueue.md",
-    "notes/Java-Stack.md",
-    "notes/Java-ArrayDequeue.md",
-    "ArrayDequeue.md",
+    "notes/nats-jetstream.md",
+    "notes/nats-core-messaging-patterns.md",
+    "Excalidraw/JVM.excalidraw.md",
+    "Excalidraw/GC.excalidraw.md",
+    "Excalidraw/NMSlite.excalidraw.md",
+    "Excalidraw/Drawing 2025-12-04 10.31.48.excalidraw.md",
+    "notes/ARCHITECTURE.md",
+    "AIOPS.md",
+    "notes/arp.md",
+    "notes/adwanced_networking.md",
+    "notes/attachments/images/tci-ip.png",
+    "notes/attachments/images/routing-chart.png",
+    "notes/attachments/images/knowladge-ecom-structure.png",
+    "notes/attachments/images/jvm-classloader-ex.excalidraw.md",
+    "Excalidraw/videoUploads.excalidraw.md",
+    "Excalidraw/ThreadStates.excalidraw.md",
     "Excalidraw/LinkedHashSet.excalidraw.md",
-    "notes/Java-HashSet.md",
-    "notes/java-Set.md",
+    "Excalidraw/exceptions.excalidraw.md",
+    "Excalidraw/JAVAStack.excalidraw.md",
+    "Excalidraw/Drawing 2025-10-27 18.17.41.excalidraw.md",
+    "Excalidraw/Drawing 2025-07-24 14.59.28.excalidraw.md",
+    "Excalidraw/Drawing 2025-07-10 15.06.34.excalidraw.md",
     "Excalidraw/collection.excalidraw.md",
-    "Java-Cursors-Compared.md",
-    "notes/java-cursors.md",
-    "notes/arraylist-vs-linkedlist.md",
-    "notes/doublylinkedlist.md",
-    "notes/java-LinkedList.md",
-    "notes/java-Collections.md",
-    "notes/java-collection.md",
-    "notes/routing.md",
-    "notes/java-collections.md",
-    "java-collection.md",
-    "notes/java-list.md",
-    "notes/arraylist-vs-vector.md",
-    "OSPF Multiarea.canvas",
+    "Untitled 2.base",
+    "Untitled 1.base",
+    "Untitled.base",
+    "Excalidraw/Drawing 2025-09-26 18.48.32.excalidraw.md",
+    "notes/zmq.md",
+    "Lazy Pirate pattern.md",
+    "notes/zmq-advanced-request-responce-patterns.md",
+    "bc_test.md",
+    "InnovationWiki.md",
+    "InnoWiki.pdf",
     "JVM-arch.canvas",
+    "OSPF Multiarea.canvas",
+    "Untitled 3.base",
     "Untitled 1.canvas",
     "Untitled.canvas",
+    "notes/cache.md~",
+    "notes/Java-Map.md~",
+    "notes/Java-TreeSet.md~",
+    "notes/4913",
+    "notes/java-collection.md~",
     "Hyprland/subprojects/tracy/test/image.jpg",
     "Hyprland/subprojects/tracy/manual/images/screenshot-lo.png",
     "Hyprland/subprojects/tracy/manual/images/screenshot-hi.png",
     "Hyprland/subprojects/tracy/manual/images/ryzen.png",
     "Hyprland/subprojects/tracy/manual/icons/scroll.svg",
     "Hyprland/subprojects/tracy/manual/icons/rmb.svg",
-    "Hyprland/subprojects/tracy/manual/icons/mouse.svg",
-    "Hyprland/subprojects/tracy/manual/icons/mmb.svg",
-    "Hyprland/subprojects/tracy/manual/icons/lmb.svg",
-    "Hyprland/subprojects/tracy/icon/icon.svg"
+    "Hyprland/subprojects/tracy/manual/icons/mouse.svg"
   ]
 }
