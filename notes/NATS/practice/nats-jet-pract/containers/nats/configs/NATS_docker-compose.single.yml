@@ -1,0 +1,67 @@
+# NATS Single Node Configuration for Testing
+# This configuration runs a single NATS server with JetStream enabled
+# Perfect for development and learning NATS concepts
+
+version: '3.8'
+
+services:
+  nats-single:
+    image: nats:2.10-alpine
+    container_name: nats-single
+    
+    # Command to start NATS with JetStream and custom config
+    command: [
+      "--name", "nats-single",
+      "--jetstream",                    # Enable JetStream for persistent messaging
+      "--store_dir", "/data/jetstream", # JetStream storage directory
+      "--http_port", "8222",            # HTTP monitoring port
+      "--port", "4222",                 # Client connection port
+      "--cluster_name", "nats-cluster", # Cluster identifier
+      "--max_payload", "1MB",           # Maximum message payload size
+      "--max_connections", "1000"       # Maximum client connections
+    ]
+    
+    # Port mappings: host:container
+    ports:
+      - "4222:4222"  # NATS client port
+      - "8222:8222"  # HTTP monitoring/metrics port
+    
+    # Volume mounts for data persistence
+    volumes:
+      - nats_single_data:/data/jetstream  # JetStream persistent storage
+      - ./logs:/logs                       # Log files directory
+    
+    # Environment variables
+    environment:
+      - NATS_LOG_LEVEL=info
+    
+    # Health check to ensure NATS is running properly
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8222/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Resource limits (optional but recommended)
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5'
+
+# Named volumes for data persistence
+volumes:
+  nats_single_data:
+    driver: local
+
+# Network configuration
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

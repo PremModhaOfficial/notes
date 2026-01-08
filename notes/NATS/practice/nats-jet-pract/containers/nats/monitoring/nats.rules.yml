@@ -1,0 +1,47 @@
+groups:
+- name: nats_alerts
+  rules:
+  - alert: NatsServerDown
+    expr: up{job="nats"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "NATS server instance is down"
+      description: "Instance {{ $labels.instance }} has been down for more than 1 minute."
+
+  - alert: NatsSlowConsumers
+    expr: sum(nats_slow_consumers) > 5
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High number of slow consumers detected"
+      description: "There are {{ $value }} slow consumers on the NATS cluster."
+
+  - alert: NatsJetStreamMemoryHigh
+    expr: (nats_js_memory / 1e9) > 1.5 # Example threshold: 1.5 GB
+    for: 10m
+    labels:
+      severity: warning
+    annotations:
+      summary: "JetStream memory usage is high"
+      description: "JetStream is using {{ $value }}GB of memory on {{ $labels.instance }}."
+
+  - alert: NatsClusterNoLeader
+    expr: nats_js_ha_assets == 0 and nats_js_streams > 0
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "NATS node has no RAFT leadership but streams exist"
+      description: "Node {{ $labels.instance }} has no stream leadership, indicating a potential quorum issue."
+
+  - alert: NatsRouteLatencyHigh
+    expr: avg(nats_route_rtt_nanos) / 1e6 > 100 # > 100ms
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "High latency between NATS cluster nodes"
+      description: "Average route RTT is {{ $value }}ms, which may impact cluster performance."

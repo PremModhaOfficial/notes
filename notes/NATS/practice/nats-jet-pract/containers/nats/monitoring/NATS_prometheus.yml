@@ -1,0 +1,80 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - "NATS_alert-rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # NATS Server Metrics
+  - job_name: 'nats-servers'
+    static_configs:
+      - targets: 
+        - 'nats-1:8222'
+        - 'nats-2:8222'
+        - 'nats-3:8222'
+    metrics_path: /varz
+    scrape_interval: 5s
+    scrape_timeout: 3s
+
+  # JetStream Metrics
+  - job_name: 'nats-jetstream'
+    static_configs:
+      - targets:
+        - 'nats-1:8222'
+        - 'nats-2:8222' 
+        - 'nats-3:8222'
+    metrics_path: /jsz
+    scrape_interval: 10s
+    scrape_timeout: 5s
+
+  # Connection Metrics
+  - job_name: 'nats-connections'
+    static_configs:
+      - targets:
+        - 'nats-1:8222'
+        - 'nats-2:8222'
+        - 'nats-3:8222'
+    metrics_path: /connz
+    scrape_interval: 15s
+
+  # Route Metrics (Cluster Health)
+  - job_name: 'nats-routes'
+    static_configs:
+      - targets:
+        - 'nats-1:8222'
+        - 'nats-2:8222'
+        - 'nats-3:8222'
+    metrics_path: /routez
+    scrape_interval: 10s
+
+  # Subscription Metrics
+  - job_name: 'nats-subscriptions'
+    static_configs:
+      - targets:
+        - 'nats-1:8222'
+        - 'nats-2:8222'
+        - 'nats-3:8222'
+    metrics_path: /subsz
+    scrape_interval: 20s
+
+  # Account Metrics (if using accounts)
+  - job_name: 'nats-accounts'
+    static_configs:
+      - targets:
+        - 'nats-1:8222'
+        - 'nats-2:8222'
+        - 'nats-3:8222'
+    metrics_path: /accountz
+    scrape_interval: 30s
+
+  # Prometheus Self-Monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

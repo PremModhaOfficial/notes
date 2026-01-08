@@ -1,0 +1,19 @@
+FROM postgres:16-alpine
+
+
+ENV POSTGRES_DB=nats_db
+ENV POSTGRES_USER=nats_msgr
+ENV POSTGRES_PASSWORD=nats_pass
+
+
+COPY postgresql.conf /etc/postgresql/16/main/postgresql.conf
+RUN chown postgres:postgres /etc/postgresql/16/main/postgresql.conf
+
+
+COPY init.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 5432
+
+HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
+	CMD pg_isready -U nats_msgr -d nats_db
+

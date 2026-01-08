@@ -1,0 +1,134 @@
+# NATS 3-Node Cluster Configuration with JetStream
+# This setup creates a highly available NATS cluster with 3 nodes
+# Each node can handle client connections and participates in clustering
+
+version: '3.8'
+
+services:
+  # NATS Node 1 - Primary node
+  nats-1:
+    image: nats:2.10-alpine
+    container_name: nats-1
+    hostname: nats-1
+    
+    # Use custom configuration file
+    command: ["-c", "/etc/nats/nats-1.conf"]
+    
+    # Port mappings for Node 1
+    ports:
+      - "4222:4222"  # Client port for nats-1
+      - "8222:8222"  # HTTP monitoring port for nats-1
+      - "6222:6222"  # Cluster port for inter-node communication
+    
+    # Volume mounts
+    volumes:
+      - ./configs/NATS_nats-1.conf:/etc/nats/nats-1.conf:ro  # Configuration file
+      - nats_1_data:/data/jetstream                          # JetStream storage
+      - ./logs:/logs                                         # Shared logs directory
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8222/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    
+    networks:
+      nats-cluster:
+        ipv4_address: 172.21.0.10
+    
+    restart: unless-stopped
+
+  # NATS Node 2 - Secondary node
+  nats-2:
+    image: nats:2.10-alpine
+    container_name: nats-2
+    hostname: nats-2
+    
+    command: ["-c", "/etc/nats/nats-2.conf"]
+    
+    # Port mappings for Node 2
+    ports:
+      - "4223:4222"  # Client port for nats-2
+      - "8223:8222"  # HTTP monitoring port for nats-2
+      - "6223:6222"  # Cluster port for nats-2
+    
+    volumes:
+      - ./configs/NATS_nats-2.conf:/etc/nats/nats-2.conf:ro
+      - nats_2_data:/data/jetstream
+      - ./logs:/logs
+    
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8222/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    
+    networks:
+      nats-cluster:
+        ipv4_address: 172.21.0.11
+    
+    # Wait for nats-1 to be healthy before starting
+    depends_on:
+      nats-1:
+        condition: service_healthy
+    
+    restart: unless-stopped
+
+  # NATS Node 3 - Tertiary node
+  nats-3:
+    image: nats:2.10-alpine
+    container_name: nats-3
+    hostname: nats-3
+    
+    command: ["-c", "/etc/nats/nats-3.conf"]
+    
+    # Port mappings for Node 3
+    ports:
+      - "4224:4222"  # Client port for nats-3
+      - "8224:8222"  # HTTP monitoring port for nats-3
+      - "6224:6222"  # Cluster port for nats-3
+    
+    volumes:
+      - ./configs/NATS_nats-3.conf:/etc/nats/nats-3.conf:ro
+      - nats_3_data:/data/jetstream
+      - ./logs:/logs
+    
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8222/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    
+    networks:
+      nats-cluster:
+        ipv4_address: 172.21.0.12
+    
+    # Wait for nats-2 to be healthy before starting
+    depends_on:
+      nats-2:
+        condition: service_healthy
+    
+    restart: unless-stopped
+
+# Named volumes for persistent data storage
+volumes:
+  nats_1_data:
+    driver: local
+  nats_2_data:
+    driver: local
+  nats_3_data:
+    driver: local
+
+# Custom network for cluster communication
+networks:
+  nats-cluster:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.21.0.0/16
+          gateway: 172.21.0.1

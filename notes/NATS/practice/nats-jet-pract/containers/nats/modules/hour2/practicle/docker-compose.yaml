@@ -1,0 +1,38 @@
+version: "3.8"
+
+networks:
+  nats_net:
+
+services:
+  nats-1:
+    image: nats:2.9
+    networks:
+      - nats_net
+    ports:
+      - "4222:4222" # Client port
+      - "8222:8222" # HTTP management port
+    command: "-c /etc/nats/nats-1.conf"
+    volumes:
+      - ./nats-1.conf:/etc/nats/nats-1.conf
+
+  nats-2:
+    image: nats:2.9
+    networks:
+      - nats_net
+    ports:
+      - "4223:4222" # Client port
+      - "8223:8222" # HTTP management port
+    command: "-c /etc/nats/nats-2.conf"
+    volumes:
+      - ./nats-2.conf:/etc/nats/nats-2.conf
+
+  nats-3:
+    image: nats:2.9
+    networks:
+      - nats_net
+    ports:
+      - "4224:4222" # Client port
+      - "8224:8222" # HTTP management port
+    command: "-c /etc/nats/nats-3.conf"
+    volumes:
+      - ./nats-3.conf:/etc/nats/nats-3.conf

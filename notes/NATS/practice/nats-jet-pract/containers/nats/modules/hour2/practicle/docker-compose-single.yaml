@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  nats:
+    image: nats:2.9
+    ports:
+      - "4222:4222" # Client port
+      - "8222:8222" # HTTP management port
+    command: "-c /etc/nats/nats-server.conf"
+    volumes:
+      - ./nats-server.conf:/etc/nats/nats-server.conf
