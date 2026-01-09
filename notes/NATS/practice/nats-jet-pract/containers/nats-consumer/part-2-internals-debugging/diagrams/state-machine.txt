@@ -1,0 +1,236 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       CONSUMER STATE MACHINE                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          INTERNAL STATE FIELDS
+═══════════════════════════════════════════════════════════════════════════════
+
+  The server maintains these key fields for each consumer:
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                        CONSUMER STATE                                    │
+  ├─────────────────────────────────────────────────────────────────────────┤
+  │                                                                         │
+  │  SEQUENCE TRACKING:                                                     │
+  │  ┌───────────────────────────────────────────────────────────────────┐  │
+  │  │                                                                   │  │
+  │  │  sseq  = 42   ─── Next stream sequence to deliver                 │  │
+  │  │                   Points to next undelivered message in stream    │  │
+  │  │                                                                   │  │
+  │  │  dseq  = 15   ─── Consumer delivery sequence (monotonic)          │  │
+  │  │                   Increments with each delivery (incl. redeliver) │  │
+  │  │                                                                   │  │
+  │  │  adflr = 12   ─── Ack delivery floor                              │  │
+  │  │                   All consumer sequences ≤ 12 are acknowledged    │  │
+  │  │                                                                   │  │
+  │  │  asflr = 40   ─── Ack store floor                                 │  │
+  │  │                   All stream sequences ≤ 40 are acknowledged      │  │
+  │  │                                                                   │  │
+  │  └───────────────────────────────────────────────────────────────────┘  │
+  │                                                                         │
+  │  PENDING MAP: (messages delivered but not yet acknowledged)             │
+  │  ┌───────────────────────────────────────────────────────────────────┐  │
+  │  │                                                                   │  │
+  │  │  streamSeq:41 → { consumerSeq:13, timestamp:1704067200, dc:1 }    │  │
+  │  │  streamSeq:42 → { consumerSeq:14, timestamp:1704067201, dc:1 }    │  │
+  │  │                                                                   │  │
+  │  │  Key: stream sequence                                             │  │
+  │  │  Value: consumer seq, delivery time, delivery count               │  │
+  │  │                                                                   │  │
+  │  └───────────────────────────────────────────────────────────────────┘  │
+  │                                                                         │
+  │  REDELIVERY QUEUE (rdq): [41, 42]                                       │
+  │  ┌───────────────────────────────────────────────────────────────────┐  │
+  │  │                                                                   │  │
+  │  │  Messages that need to be redelivered due to:                     │  │
+  │  │  - AckWait timeout                                                │  │
+  │  │  - Explicit Nak()                                                 │  │
+  │  │                                                                   │  │
+  │  │  Priority: rdq messages delivered before new stream messages      │  │
+  │  │                                                                   │  │
+  │  └───────────────────────────────────────────────────────────────────┘  │
+  │                                                                         │
+  │  REDELIVERY COUNTS (rdc):                                               │
+  │  ┌───────────────────────────────────────────────────────────────────┐  │
+  │  │                                                                   │  │
+  │  │  streamSeq:41 → 2   (delivered twice, not yet acked)              │  │
+  │  │  streamSeq:42 → 1   (first delivery)                              │  │
+  │  │                                                                   │  │
+  │  │  When rdc[seq] >= MaxDeliver → message is dropped/dead            │  │
+  │  │                                                                   │  │
+  │  └───────────────────────────────────────────────────────────────────┘  │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          MESSAGE LIFECYCLE
+═══════════════════════════════════════════════════════════════════════════════
+
+
+                          ┌─────────────────┐
+                          │  STREAM MESSAGE │
+                          │    (seq: 42)    │
+                          └────────┬────────┘
+                                   │
+                                   │ Consumer fetches or push delivers
+                                   ▼
+                          ┌─────────────────┐
+                          │    DELIVERED    │
+                          │                 │
+                          │ Added to:       │
+                          │ - pending map   │
+                          │ - AckWait timer │
+                          └────────┬────────┘
+                                   │
+           ┌───────────────────────┼───────────────────────┐
+           │                       │                       │
+           ▼                       ▼                       ▼
+    ┌─────────────┐         ┌─────────────┐         ┌─────────────┐
+    │    +ACK     │         │    -NAK     │         │   +TERM     │
+    │             │         │             │         │             │
+    │ Client acks │         │ Client naks │         │ Client term │
+    │ successfully│         │ (retry)     │         │ (give up)   │
+    └──────┬──────┘         └──────┬──────┘         └──────┬──────┘
+           │                       │                       │
+           ▼                       ▼                       ▼
+    ┌─────────────┐         ┌─────────────┐         ┌─────────────┐
+    │  COMPLETED  │         │  REDELIVERY │         │    DEAD     │
+    │             │         │    QUEUE    │         │             │
+    │ Removed:    │         │             │         │ Removed:    │
+    │ - pending   │         │ Added to    │         │ - pending   │
+    │ - rdc       │         │ rdq for     │         │ - rdc       │
+    │             │         │ retry       │         │             │
+    │ Advanced:   │         │             │         │ Stays in    │
+    │ - adflr     │         │ rdc++       │         │ stream but  │
+    │ - asflr     │         │             │         │ never       │
+    └─────────────┘         └──────┬──────┘         │ redelivered │
+                                   │                └─────────────┘
+                                   │
+                            ┌──────┴──────┐
+                            │             │
+                            ▼             ▼
+                     ┌───────────┐  ┌───────────┐
+                     │ REDELIVER │  │ MAX       │
+                     │           │  │ DELIVER   │
+                     │ Delivered │  │ EXCEEDED  │
+                     │ again     │  │           │
+                     │ rdc++     │  │ → DEAD    │
+                     └───────────┘  └───────────┘
+
+
+                         ┌─────────────────────┐
+                         │    ACKWAIT TIMER    │
+                         │                     │
+                         │  If no ack/nak/wpi  │
+                         │  within AckWait:    │
+                         │                     │
+                         │  → Add to rdq       │
+                         │  → rdc++            │
+                         │  → Redeliver        │
+                         └─────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          STATE TRANSITIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                                                                         │
+  │  Initial State:                                                         │
+  │  ┌─────────────────────────────────────────────────────────────────┐    │
+  │  │  sseq=1, dseq=0, adflr=0, asflr=0, pending={}, rdq=[], rdc={}   │    │
+  │  └─────────────────────────────────────────────────────────────────┘    │
+  │                                                                         │
+  │  After delivering M1, M2, M3:                                           │
+  │  ┌─────────────────────────────────────────────────────────────────┐    │
+  │  │  sseq=4, dseq=3                                                 │    │
+  │  │  pending={1→{cs:1}, 2→{cs:2}, 3→{cs:3}}                         │    │
+  │  │  adflr=0, asflr=0 (nothing acked yet)                           │    │
+  │  └─────────────────────────────────────────────────────────────────┘    │
+  │                                                                         │
+  │  After acking M1:                                                       │
+  │  ┌─────────────────────────────────────────────────────────────────┐    │
+  │  │  pending={2→{cs:2}, 3→{cs:3}}                                   │    │
+  │  │  adflr=1, asflr=1                                               │    │
+  │  └─────────────────────────────────────────────────────────────────┘    │
+  │                                                                         │
+  │  After acking M3 (M2 still pending - gap):                              │
+  │  ┌─────────────────────────────────────────────────────────────────┐    │
+  │  │  pending={2→{cs:2}}  ← M3 removed, but M2 still there           │    │
+  │  │  adflr=1, asflr=1    ← Floor doesn't advance past gap           │    │
+  │  └─────────────────────────────────────────────────────────────────┘    │
+  │                                                                         │
+  │  After acking M2 (gap closed):                                          │
+  │  ┌─────────────────────────────────────────────────────────────────┐    │
+  │  │  pending={}                                                     │    │
+  │  │  adflr=3, asflr=3   ← Floor advances to include all acked       │    │
+  │  └─────────────────────────────────────────────────────────────────┘    │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                        MAXACKPENDING FLOW CONTROL
+═══════════════════════════════════════════════════════════════════════════════
+
+  MaxAckPending = 3
+
+  ┌──────────────────────────────────────────────────────────────────────┐
+  │                                                                      │
+  │  Time ──────────────────────────────────────────────────────────►    │
+  │                                                                      │
+  │  pending.size()                                                      │
+  │       │                                                              │
+  │     3 ├───────────────────────LIMIT REACHED!─────────────────────    │
+  │       │           ╱╲              ╱╲                                 │
+  │     2 ├──────────╱──╲────────────╱──╲────────                        │
+  │       │         ╱    ╲          ╱    ╲                               │
+  │     1 ├────────╱──────╲────────╱──────╲──────                        │
+  │       │       ╱        ╲      ╱        ╲                             │
+  │     0 ├──────────────────────────────────────                        │
+  │       └───────────────────────────────────────►                      │
+  │           D1  D2  D3  A1  D4  A2  A3  D5  D6                         │
+  │                                                                      │
+  │  D = Deliver, A = Ack                                                │
+  │                                                                      │
+  │  At D3: pending={1,2,3}, size=3=MaxAckPending                        │
+  │         → Server STOPS delivering!                                   │
+  │                                                                      │
+  │  At A1: pending={2,3}, size=2 < MaxAckPending                        │
+  │         → Server delivers D4                                         │
+  │                                                                      │
+  └──────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                        DEBUGGING: WHAT TO CHECK
+═══════════════════════════════════════════════════════════════════════════════
+
+  nats consumer info STREAM CONSUMER
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                                                                         │
+  │  Num Pending: 10000        ← Messages in stream waiting for delivery    │
+  │                              High = backlog growing                     │
+  │                                                                         │
+  │  Num Ack Pending: 1000     ← Delivered but not acked                    │
+  │                              = MaxAckPending? You're blocked!           │
+  │                                                                         │
+  │  Num Redelivered: 5000     ← Total redeliveries                         │
+  │                              High = processing failures                 │
+  │                                                                         │
+  │  Num Waiting: 5            ← Pull requests waiting (pull consumer)      │
+  │                              High = workers idle, not enough messages   │
+  │                                                                         │
+  │  Ack Floor:                                                             │
+  │    Consumer seq: 12        ← All consumer sequences ≤12 acked           │
+  │    Stream seq: 40          ← All stream sequences ≤40 acked             │
+  │                                                                         │
+  │  Last Delivered:                                                        │
+  │    Consumer seq: 15        ← Latest delivery sequence                   │
+  │    Stream seq: 45          ← Latest stream message delivered            │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘

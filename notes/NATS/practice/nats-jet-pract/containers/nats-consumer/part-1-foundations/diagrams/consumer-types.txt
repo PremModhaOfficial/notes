@@ -1,0 +1,111 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      PULL vs PUSH CONSUMERS                                 │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                              PULL CONSUMER
+═══════════════════════════════════════════════════════════════════════════════
+
+  Client controls the flow. Requests messages when ready.
+
+  ┌──────────┐                                           ┌──────────────────┐
+  │  Client  │                                           │   NATS Server    │
+  │          │                                           │                  │
+  │  ┌────┐  │    ───── "Fetch 10 messages" ────────►    │  ┌────────────┐  │
+  │  │Work│  │                                           │  │   Stream   │  │
+  │  │    │  │                                           │  │ ┌────────┐ │  │
+  │  │ 10 │  │    ◄───── Messages 1-10 ──────────────    │  │ │M1│M2│M3│ │  │
+  │  │msgs│  │                                           │  │ └────────┘ │  │
+  │  └────┘  │    ───── ACK 1-10 ────────────────────►   │  │   ...      │  │
+  │          │                                           │  └────────────┘  │
+  │  ┌────┐  │    ───── "Fetch 10 more" ─────────────►   │                  │
+  │  │Work│  │                                           │  ┌────────────┐  │
+  │  │next│  │    ◄───── Messages 11-20 ─────────────    │  │  Consumer  │  │
+  │  │batch│ │                                           │  │   State    │  │
+  │  └────┘  │                                           │  └────────────┘  │
+  └──────────┘                                           └──────────────────┘
+
+  ✓ Client-driven flow control (backpressure is natural)
+  ✓ Easy horizontal scaling (add more pullers)
+  ✓ Batch processing friendly
+  ✓ Recommended for most use cases
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                              PUSH CONSUMER  
+═══════════════════════════════════════════════════════════════════════════════
+
+  Server pushes messages to a delivery subject. Client subscribes.
+
+  ┌──────────────────┐                                   ┌──────────┐
+  │   NATS Server    │                                   │  Client  │
+  │                  │                                   │          │
+  │  ┌────────────┐  │    ───── Message 1 ──────────►    │  ┌────┐  │
+  │  │   Stream   │  │    ───── Message 2 ──────────►    │  │Buff│  │
+  │  │ ┌────────┐ │  │    ───── Message 3 ──────────►    │  │er  │  │
+  │  │ │M1│M2│M3│ │  │                                   │  │    │  │
+  │  │ └────────┘ │  │                                   │  └────┘  │
+  │  │   ...      │  │    ◄───── ACK 1, 2, 3 ────────    │          │
+  │  └────────────┘  │                                   │  Process │
+  │                  │    ───── Message 4 ──────────►    │  as fast │
+  │  ┌────────────┐  │    ───── Message 5 ──────────►    │  as you  │
+  │  │  Consumer  │  │                                   │  can!    │
+  │  │   State    │  │                                   │          │
+  │  └────────────┘  │                                   └──────────┘
+  └──────────────────┘
+         │
+         │  Delivery Subject: "deliver.orders"
+         │  (client must subscribe here)
+         ▼
+
+  ⚠ Server-driven flow (needs FlowControl option)
+  ⚠ Scaling requires queue groups
+  ⚠ Must handle backpressure via MaxAckPending
+  ○ Good for real-time streaming to single client
+  ○ Legacy migration from Core NATS
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                           COMPARISON TABLE
+═══════════════════════════════════════════════════════════════════════════════
+
+  ┌──────────────────┬─────────────────────┬─────────────────────┐
+  │     Aspect       │    PULL Consumer    │    PUSH Consumer    │
+  ├──────────────────┼─────────────────────┼─────────────────────┤
+  │ Flow control     │ Client-driven       │ Server-driven       │
+  │                  │ (natural)           │ (config needed)     │
+  ├──────────────────┼─────────────────────┼─────────────────────┤
+  │ Scaling          │ Easy                │ Complex             │
+  │                  │ (add more pullers)  │ (queue groups)      │
+  ├──────────────────┼─────────────────────┼─────────────────────┤
+  │ Backpressure     │ Stop pulling        │ MaxAckPending       │
+  ├──────────────────┼─────────────────────┼─────────────────────┤
+  │ Batching         │ Native              │ Not supported       │
+  ├──────────────────┼─────────────────────┼─────────────────────┤
+  │ Real-time        │ Polling overhead    │ Immediate push      │
+  ├──────────────────┼─────────────────────┼─────────────────────┤
+  │ Complexity       │ Simple              │ More config         │
+  └──────────────────┴─────────────────────┴─────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                        WHEN TO USE EACH
+═══════════════════════════════════════════════════════════════════════════════
+
+  PULL CONSUMER:
+  ┌───────────────────────────────────────────────────────────────┐
+  │ ✓ Horizontal scaling with multiple workers                    │
+  │ ✓ Batch processing                                            │
+  │ ✓ Slow consumers that need backpressure                       │
+  │ ✓ New projects (recommended default)                          │
+  │ ✓ External API calls with rate limits                         │
+  └───────────────────────────────────────────────────────────────┘
+
+  PUSH CONSUMER:
+  ┌───────────────────────────────────────────────────────────────┐
+  │ ○ Simple replay scenarios                                     │
+  │ ○ Real-time streaming to single client                        │
+  │ ○ Legacy migration from Core NATS subscriptions               │
+  │ ○ When you need immediate push without polling                │
+  └───────────────────────────────────────────────────────────────┘

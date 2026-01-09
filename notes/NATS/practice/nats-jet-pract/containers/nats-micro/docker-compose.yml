@@ -1,0 +1,57 @@
+# NATS Micro Service Framework Learning Lab - Docker Compose
+# Self-contained environment for learning NATS Micro services
+#
+# Usage:
+#   docker compose up -d        # Start NATS server
+#   docker compose logs -f      # View logs
+#   docker compose down -v      # Stop and clean up
+#
+# Service discovery commands:
+#   docker exec -it nats-micro-lab nats micro ls
+#   docker exec -it nats-micro-lab nats micro info <service-name>
+#   docker exec -it nats-micro-lab nats micro stats <service-name>
+
+version: "3.8"
+
+services:
+  nats:
+    image: nats:2.10-alpine
+    container_name: nats-micro-lab
+    ports:
+      - "4222:4222"   # Client connections
+      - "8222:8222"   # HTTP monitoring
+    command: >
+      --name nats-micro-lab
+      --jetstream
+      --store_dir /data
+      --http_port 8222
+      -m 8222
+    volumes:
+      - nats-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8222/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  nats-data:
+    driver: local
+
+# Quick verification after starting:
+#
+# 1. Check NATS is running:
+#    curl http://localhost:8222/varz | jq .
+#
+# 2. Test $SRV discovery (after running a service):
+#    docker exec -it nats-micro-lab nats req '$SRV.PING' '' --replies=0 --timeout=1s
+#
+# 3. Get service info:
+#    docker exec -it nats-micro-lab nats req '$SRV.INFO.EchoService' ''
+#
+# 4. Get service stats:
+#    docker exec -it nats-micro-lab nats req '$SRV.STATS.EchoService' ''
+#
+# Note: JetStream is enabled in case you want to explore
+# the Micro + JetStream integration patterns in Part 2.

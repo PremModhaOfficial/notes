@@ -1,0 +1,184 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         ACK PROTOCOL DEEP DIVE                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          ACK SUBJECT WIRE FORMAT
+═══════════════════════════════════════════════════════════════════════════════
+
+  When you call msg.Ack(), the client sends a message to a reply subject
+  embedded in the delivered message. This subject contains all tracking info:
+
+  $JS.ACK.<stream>.<consumer>.<dc>.<sseq>.<cseq>.<ts>.<pending>
+          │        │           │    │      │      │    │
+          │        │           │    │      │      │    └── Pending messages
+          │        │           │    │      │      │        remaining
+          │        │           │    │      │      │
+          │        │           │    │      │      └── Timestamp (nanoseconds)
+          │        │           │    │      │          When message was delivered
+          │        │           │    │      │
+          │        │           │    │      └── Consumer sequence
+          │        │           │    │          Monotonic per consumer
+          │        │           │    │
+          │        │           │    └── Stream sequence
+          │        │           │        Position in stream
+          │        │           │
+          │        │           └── Delivery count
+          │        │               1 = first attempt, 2+ = redelivery
+          │        │
+          │        └── Consumer name
+          │            "order-processor"
+          │
+          └── Stream name
+              "ORDERS"
+
+
+  EXAMPLE:
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ $JS.ACK.ORDERS.order-processor.1.42.15.1704067200000000000.5            │
+  └─────────────────────────────────────────────────────────────────────────┘
+           │       │               │ │  │  │                   │
+           │       │               │ │  │  │                   └── 5 pending
+           │       │               │ │  │  └── timestamp (ns since epoch)
+           │       │               │ │  └── consumer seq 15
+           │       │               │ └── stream seq 42
+           │       │               └── 1st delivery attempt
+           │       └── consumer: "order-processor"
+           └── stream: "ORDERS"
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          THE 5 ACK TYPES
+═══════════════════════════════════════════════════════════════════════════════
+
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                        MESSAGE DELIVERED                                │
+  └─────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+        ┌───────────────────────────┼───────────────────────────┐
+        │              │            │            │              │
+        ▼              ▼            ▼            ▼              ▼
+  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
+  │   +ACK   │  │   -NAK   │  │ -NAK     │  │   +WPI   │  │  +TERM   │
+  │          │  │          │  │ w/Delay  │  │          │  │          │
+  │ msg.Ack()│  │ msg.Nak()│  │ msg.Nak  │  │ msg.In   │  │ msg.Term │
+  │          │  │          │  │ WithDelay│  │ Progress │  │ ()       │
+  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘  └────┬─────┘
+       │             │             │             │              │
+       ▼             ▼             ▼             ▼              ▼
+  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐
+  │ COMPLETE │  │ IMMEDIATE│  │  DELAYED │  │  EXTEND  │  │  DEAD    │
+  │          │  │ REDELIVER│  │ REDELIVER│  │  ACKWAIT │  │          │
+  │ Removed  │  │          │  │          │  │          │  │ Stays in │
+  │ from     │  │ Back to  │  │ Wait N   │  │ Reset    │  │ stream   │
+  │ pending  │  │ queue    │  │ seconds  │  │ timer    │  │ forever  │
+  └──────────┘  └──────────┘  └──────────┘  └──────────┘  └──────────┘
+
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │ TYPE       │ CODE  │ BEHAVIOR                       │ USE CASE          │
+  ├────────────┼───────┼────────────────────────────────┼───────────────────┤
+  │ +ACK       │ Ack() │ Message processed, remove from │ Success           │
+  │            │       │ pending, advance ack floor     │                   │
+  ├────────────┼───────┼────────────────────────────────┼───────────────────┤
+  │ -NAK       │ Nak() │ Immediate redelivery, back to  │ Temp failure      │
+  │            │       │ redelivery queue               │ ⚠ Can cause storm │
+  ├────────────┼───────┼────────────────────────────────┼───────────────────┤
+  │ -NAK+Delay │ Nak   │ Redeliver after delay, better  │ Rate limits,      │
+  │            │ With  │ than immediate Nak             │ transient errors  │
+  │            │ Delay │                                │                   │
+  ├────────────┼───────┼────────────────────────────────┼───────────────────┤
+  │ +WPI       │ In    │ Reset AckWait timer, signal    │ Long-running      │
+  │            │ Prog  │ still processing               │ tasks             │
+  │            │ ress()│                                │                   │
+  ├────────────┼───────┼────────────────────────────────┼───────────────────┤
+  │ +TERM      │ Term()│ Stop retrying this message,    │ Poison pills,     │
+  │            │       │ mark as dead                   │ unprocessable     │
+  └────────────┴───────┴────────────────────────────────┴───────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                            ACK FLOW TIMELINE
+═══════════════════════════════════════════════════════════════════════════════
+
+  Normal +ACK Flow:
+  
+  Time ─────────────────────────────────────────────────────────────────────►
+  
+  Server         ───[Deliver M42]────►                    
+                                      │
+  Client                              ▼
+                                 [Process]
+                                      │
+  Client         ◄────────────────────┴─────[+ACK]─────►
+                                                        │
+  Server State   Pending: {42}        ──────────────►   Pending: {}
+                                                        AckFloor: 42
+
+
+  -NAK with Delay Flow:
+
+  Time ─────────────────────────────────────────────────────────────────────►
+  
+  Server         ───[Deliver M42]────►         ───[Redeliver M42]────►
+                                      │                    ▲
+                                      ▼                    │
+  Client                         [Process]            [Retry]
+                                   FAILS                   │
+                                      │                    │
+  Client         ◄────────────────────┴─[NAK+5s]──►       │
+                                              │            │
+                                              └──[5s]──────┘
+  
+  Server State   Pending: {42}     RDQ: [42]          Pending: {42}
+                                   Timer: 5s
+
+
+  +WPI (Work In Progress) Flow:
+
+  Time ─────────────────────────────────────────────────────────────────────►
+  
+  AckWait=30s    |◄────────────30s────────────►|◄────────────30s──────────►|
+  
+  Server         ───[Deliver M42]────►                              
+                                      │
+  Client                              ▼
+                                 [Long Process..........................]
+                                      │                    │
+                                      │                    │
+  Client         ◄────────────────────┴─[+WPI]─────►      └─[+ACK]────────►
+                                              │
+                                              └── Timer Reset!
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                            ⚠ REDELIVERY STORM
+═══════════════════════════════════════════════════════════════════════════════
+
+  DANGER: Using Nak() without delay in a loop
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                                                                         │
+  │   for msg := range messages {                                           │
+  │       if err := process(msg); err != nil {                              │
+  │           msg.Nak()  // ← IMMEDIATE REDELIVERY!                         │
+  │       }              //   If it keeps failing, you get a storm          │
+  │   }                                                                     │
+  │                                                                         │
+  │   Timeline:                                                             │
+  │   ────────────────────────────────────────────────────────►             │
+  │   Deliver → Fail → Nak → Deliver → Fail → Nak → Deliver → Fail → ...   │
+  │      0ms     1ms    2ms    3ms       4ms   5ms    6ms       7ms         │
+  │                                                                         │
+  │   FIX: Use NakWithDelay()                                               │
+  │                                                                         │
+  │   msg.NakWithDelay(5 * time.Second)                                     │
+  │                                                                         │
+  │   Timeline:                                                             │
+  │   ────────────────────────────────────────────────────────►             │
+  │   Deliver → Fail → Nak ──── [5s wait] ──── Redeliver → ...              │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘

@@ -1,0 +1,264 @@
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      NATS MICRO ARCHITECTURE                                │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          SERVICE STRUCTURE
+═══════════════════════════════════════════════════════════════════════════════
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                           NATS SERVER                                    │
+  │                                                                         │
+  │  ┌───────────────────────────────────────────────────────────────────┐  │
+  │  │                        MICRO SERVICE                              │  │
+  │  │                                                                   │  │
+  │  │  ┌─────────────────────────────────────────────────────────────┐  │  │
+  │  │  │  SERVICE CONFIG                                             │  │  │
+  │  │  │                                                             │  │  │
+  │  │  │  Name:        "OrderService"                                │  │  │
+  │  │  │  Version:     "1.2.0"                                       │  │  │
+  │  │  │  Description: "Handles order processing"                    │  │  │
+  │  │  │  ID:          "x3Yuiq7g7MoxhXdxk7i4K7"  ← auto-generated    │  │  │
+  │  │  │  QueueGroup:  "q" (default)                                 │  │  │
+  │  │  │                                                             │  │  │
+  │  │  └─────────────────────────────────────────────────────────────┘  │  │
+  │  │                                                                   │  │
+  │  │  ┌─────────────────────────────────────────────────────────────┐  │  │
+  │  │  │  ENDPOINTS                                                  │  │  │
+  │  │  │                                                             │  │  │
+  │  │  │  ┌───────────────────────────────────────────────────────┐  │  │  │
+  │  │  │  │  Endpoint: "create"                                   │  │  │  │
+  │  │  │  │  Subject:  "orders.create"                            │  │  │  │
+  │  │  │  │  Queue:    "q"                                        │  │  │  │
+  │  │  │  │  Handler:  createOrderHandler                         │  │  │  │
+  │  │  │  └───────────────────────────────────────────────────────┘  │  │  │
+  │  │  │                                                             │  │  │
+  │  │  │  ┌───────────────────────────────────────────────────────┐  │  │  │
+  │  │  │  │  Endpoint: "status"                                   │  │  │  │
+  │  │  │  │  Subject:  "orders.status"                            │  │  │  │
+  │  │  │  │  Queue:    "q"                                        │  │  │  │
+  │  │  │  │  Handler:  getStatusHandler                           │  │  │  │
+  │  │  │  └───────────────────────────────────────────────────────┘  │  │  │
+  │  │  │                                                             │  │  │
+  │  │  └─────────────────────────────────────────────────────────────┘  │  │
+  │  │                                                                   │  │
+  │  │  ┌─────────────────────────────────────────────────────────────┐  │  │
+  │  │  │  AUTO-SUBSCRIPTIONS ($SRV Protocol)                         │  │  │
+  │  │  │                                                             │  │  │
+  │  │  │  $SRV.PING                    → respond with service info   │  │  │
+  │  │  │  $SRV.PING.OrderService       → respond (name match)        │  │  │
+  │  │  │  $SRV.PING.OrderService.<id>  → respond (exact instance)    │  │  │
+  │  │  │                                                             │  │  │
+  │  │  │  $SRV.INFO[.name[.id]]        → detailed service info       │  │  │
+  │  │  │  $SRV.STATS[.name[.id]]       → request counts, errors      │  │  │
+  │  │  │                                                             │  │  │
+  │  │  └─────────────────────────────────────────────────────────────┘  │  │
+  │  │                                                                   │  │
+  │  └───────────────────────────────────────────────────────────────────┘  │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          $SRV DISCOVERY PROTOCOL
+═══════════════════════════════════════════════════════════════════════════════
+
+  Three-level subject hierarchy for flexible targeting:
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                                                                         │
+  │  LEVEL 1: ALL SERVICES                                                  │
+  │  ────────────────────                                                   │
+  │                                                                         │
+  │  $SRV.PING  ──────►  Every micro service responds                       │
+  │                      Used for discovery/health checks                   │
+  │                                                                         │
+  │  ┌──────────────────────────────────────────────────────────────────┐   │
+  │  │ Request:  nats req '$SRV.PING' ''                                │   │
+  │  │                                                                  │   │
+  │  │ Responses from all running services:                             │   │
+  │  │   {"name":"EchoService","id":"x3Yu...","version":"1.0.0"}        │   │
+  │  │   {"name":"Calculator","id":"y4Zv...","version":"2.1.0"}         │   │
+  │  │   {"name":"OrderService","id":"z5Aw...","version":"1.2.0"}       │   │
+  │  └──────────────────────────────────────────────────────────────────┘   │
+  │                                                                         │
+  │  LEVEL 2: BY SERVICE NAME                                               │
+  │  ────────────────────────                                               │
+  │                                                                         │
+  │  $SRV.PING.OrderService  ──────►  All OrderService instances respond    │
+  │                                   Load balanced via queue group         │
+  │                                                                         │
+  │  ┌──────────────────────────────────────────────────────────────────┐   │
+  │  │ Request:  nats req '$SRV.INFO.OrderService' ''                   │   │
+  │  │                                                                  │   │
+  │  │ Responses from all OrderService instances:                       │   │
+  │  │   {"name":"OrderService","id":"z5Aw...","endpoints":[...]}       │   │
+  │  │   {"name":"OrderService","id":"a6Bx...","endpoints":[...]}       │   │
+  │  └──────────────────────────────────────────────────────────────────┘   │
+  │                                                                         │
+  │  LEVEL 3: SPECIFIC INSTANCE                                             │
+  │  ──────────────────────────                                             │
+  │                                                                         │
+  │  $SRV.STATS.OrderService.z5Aw...  ──────►  Only this instance responds  │
+  │                                            Used for debugging/sticky    │
+  │                                                                         │
+  │  ┌──────────────────────────────────────────────────────────────────┐   │
+  │  │ Request:  nats req '$SRV.STATS.OrderService.z5Aw...' ''          │   │
+  │  │                                                                  │   │
+  │  │ Response from specific instance:                                 │   │
+  │  │   {"name":"OrderService","id":"z5Aw...","started":"...",         │   │
+  │  │    "endpoints":[{"name":"create","num_requests":150}]}           │   │
+  │  └──────────────────────────────────────────────────────────────────┘   │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          QUEUE GROUP LOAD BALANCING
+═══════════════════════════════════════════════════════════════════════════════
+
+  Multiple service instances share the same queue group for load balancing:
+
+                          ┌──────────────────────────────────────┐
+                          │          Client Request              │
+                          │      nats req orders.create '{}'     │
+                          └──────────────────┬───────────────────┘
+                                             │
+                                             ▼
+                          ┌──────────────────────────────────────┐
+                          │         NATS Server                  │
+                          │                                      │
+                          │    Queue Group: "q"                  │
+                          │    Subject: "orders.create"          │
+                          │                                      │
+                          └──────────────────┬───────────────────┘
+                                             │
+                      ┌──────────────────────┼──────────────────────┐
+                      │                      │                      │
+                      ▼                      ▼                      ▼
+               ┌─────────────┐        ┌─────────────┐        ┌─────────────┐
+               │ Instance 1  │        │ Instance 2  │        │ Instance 3  │
+               │             │        │             │        │             │
+               │ OrderService│        │ OrderService│        │ OrderService│
+               │ id: x3Yu... │        │ id: y4Zv... │        │ id: z5Aw... │
+               │             │        │             │        │             │
+               │ ┌─────────┐ │        │ ┌─────────┐ │        │ ┌─────────┐ │
+               │ │ Handler │ │        │ │ Handler │ │        │ │ Handler │ │
+               │ └────┬────┘ │        │ └─────────┘ │        │ └─────────┘ │
+               │      │      │        │   (idle)    │        │   (idle)    │
+               │      ▼      │        │             │        │             │
+               │  Processes  │        │             │        │             │
+               │  Request!   │        │             │        │             │
+               └─────────────┘        └─────────────┘        └─────────────┘
+
+  Only ONE instance receives each request (round-robin by NATS).
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          SERVICE LIFECYCLE
+═══════════════════════════════════════════════════════════════════════════════
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                                                                         │
+  │  ┌───────────────────┐                                                  │
+  │  │ micro.AddService()│ ──► Service created                              │
+  │  └─────────┬─────────┘     - Subscriptions created for endpoints        │
+  │            │               - $SRV handlers registered                   │
+  │            │               - Stats collection starts                    │
+  │            ▼                                                            │
+  │  ┌───────────────────┐                                                  │
+  │  │     RUNNING       │ ──► Processing requests                          │
+  │  │                   │     - Handlers invoked                           │
+  │  │ for each request: │     - Stats updated (counts, timing)             │
+  │  │  - invoke handler │     - Errors tracked                             │
+  │  │  - update stats   │                                                  │
+  │  └─────────┬─────────┘                                                  │
+  │            │                                                            │
+  │            │ srv.Stop() called (e.g., SIGINT)                           │
+  │            ▼                                                            │
+  │  ┌───────────────────┐                                                  │
+  │  │    DRAINING       │ ──► Graceful shutdown                            │
+  │  │                   │     - Stop accepting NEW requests                │
+  │  │ finish in-flight  │     - Process in-flight requests                 │
+  │  │ requests          │     - Subscriptions drained                      │
+  │  └─────────┬─────────┘                                                  │
+  │            │                                                            │
+  │            │ All requests completed                                     │
+  │            ▼                                                            │
+  │  ┌───────────────────┐                                                  │
+  │  │   STOPPED         │ ──► Cleanup                                      │
+  │  │                   │     - DoneHandler called                         │
+  │  │ DoneHandler()     │     - Resources released                         │
+  │  │ closes Done()     │     - Done() channel closed                      │
+  │  └───────────────────┘                                                  │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          REQUEST/RESPONSE FLOW
+═══════════════════════════════════════════════════════════════════════════════
+
+  ┌────────────┐                                           ┌────────────────┐
+  │   Client   │                                           │  OrderService  │
+  │            │                                           │                │
+  │            │   ───── Request to "orders.create" ─────► │                │
+  │            │         + reply inbox: "_INBOX.xyz"       │  ┌──────────┐  │
+  │            │                                           │  │ Handler  │  │
+  │            │                                           │  │          │  │
+  │            │                                           │  │ req.Data │  │
+  │            │                                           │  │    ↓     │  │
+  │            │                                           │  │ process  │  │
+  │            │                                           │  │    ↓     │  │
+  │            │   ◄───── Response on "_INBOX.xyz" ─────── │  │ Respond  │  │
+  │            │                                           │  └──────────┘  │
+  │            │                                           │                │
+  └────────────┘                                           └────────────────┘
+
+  Request Interface:
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                                                                         │
+  │  req.Data()        → Request payload ([]byte)                           │
+  │  req.Headers()     → Request headers                                    │
+  │  req.Subject()     → Subject received on                                │
+  │  req.Reply()       → Reply-to subject                                   │
+  │                                                                         │
+  │  req.Respond(data) → Send success response                              │
+  │  req.RespondJSON(v)→ Send JSON response                                 │
+  │  req.Error(code, desc, data) → Send error response                      │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          STATS COLLECTION
+═══════════════════════════════════════════════════════════════════════════════
+
+  Built-in stats per endpoint:
+
+  ┌─────────────────────────────────────────────────────────────────────────┐
+  │                                                                         │
+  │  Endpoint: "orders.create"                                              │
+  │  ┌───────────────────────────────────────────────────────────────────┐  │
+  │  │                                                                   │  │
+  │  │  NumRequests:           150      ← Total requests received        │  │
+  │  │  NumErrors:             2        ← Errors via req.Error()         │  │
+  │  │  ProcessingTime:        4.5s     ← Total time in handlers         │  │
+  │  │  AverageProcessingTime: 30ms     ← Avg per request                │  │
+  │  │  LastError:             "..."    ← Most recent error              │  │
+  │  │                                                                   │  │
+  │  └───────────────────────────────────────────────────────────────────┘  │
+  │                                                                         │
+  │  Custom StatsHandler for business metrics:                              │
+  │  ┌───────────────────────────────────────────────────────────────────┐  │
+  │  │                                                                   │  │
+  │  │  func customStats(endpoint micro.Endpoint, req micro.Request) {   │  │
+  │  │      // Push to Prometheus, log to file, etc.                     │  │
+  │  │      stats := endpoint.Stats()                                    │  │
+  │  │      prometheus.RequestCount.Inc()                                │  │
+  │  │  }                                                                │  │
+  │  │                                                                   │  │
+  │  └───────────────────────────────────────────────────────────────────┘  │
+  │                                                                         │
+  └─────────────────────────────────────────────────────────────────────────┘

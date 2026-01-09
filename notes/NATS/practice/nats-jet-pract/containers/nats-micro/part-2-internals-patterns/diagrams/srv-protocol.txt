@@ -1,0 +1,57 @@
+CLI Tool (`nats micro ...`)                    Services (A, B)
+=========================                    ===================
+
+$SRV.PING
+---------------------------------------------------------------------
+1. ls
+   PUBLISH $SRV.PING -> _INBOX.xyz
+
+                                             LISTEN $SRV.PING
+                                             Service A receives PING
+                                             PUBLISH _INBOX.xyz -> (Service A INFO)
+
+                                             LISTEN $SRV.PING
+                                             Service B receives PING
+                                             PUBLISH _INBOX.xyz -> (Service B INFO)
+
+   SUBSCRIBE _INBOX.xyz
+   Receives INFO from A
+   Receives INFO from B
+   (Display aggregated results)
+
+$SRV.INFO
+---------------------------------------------------------------------
+2. info <name>
+   REQUEST $SRV.INFO.<name>
+
+                                             LISTEN $SRV.INFO.<name>.<id>
+                                             Service A instance receives INFO request
+                                             Responds with its INFO data
+
+$SRV.STATS
+----------------------------------------------------------------------
+3. stats <name>
+   REQUEST $SRV.STATS.<name>
+
+                                             LISTEN $SRV.STATS.<name>.<id>
+                                             All instances of Service <name> receive
+                                             the request and respond with their
+                                             individual stats data.
+
+   (CLI aggregates the stats from all
+    instances of the service)
+
+Service-to-Service Communication
+================================
+
+Client Service                             Server Service (`billing`)
+==============                             ==========================
+
+REQUEST $SRV.charge.billing -> data
+
+                                             LISTEN $SRV.charge.billing (Queue Group)
+                                             One instance receives the request.
+                                             Processes...
+                                             Responds with data or error.
+                                             
+   Receives response.

@@ -1,0 +1,69 @@
+# NATS Consumer Learning Lab - Docker Compose
+# Self-contained environment for learning JetStream Consumers
+#
+# Usage:
+#   docker compose up -d        # Start NATS server
+#   docker compose logs -f      # View logs
+#   docker compose down -v      # Stop and clean up
+#
+# NATS CLI access:
+#   docker exec -it nats-consumer-lab nats stream ls
+#   docker exec -it nats-consumer-lab nats consumer ls ORDERS
+
+version: "3.8"
+
+services:
+  nats:
+    image: nats:2.10-alpine
+    container_name: nats-consumer-lab
+    ports:
+      - "4222:4222"   # Client connections
+      - "8222:8222"   # HTTP monitoring
+    command: >
+      --name nats-consumer-lab
+      --jetstream
+      --store_dir /data
+      --http_port 8222
+      -m 8222
+    volumes:
+      - nats-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8222/healthz"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    restart: unless-stopped
+
+volumes:
+  nats-data:
+    driver: local
+
+# Quick verification after starting:
+# 
+# 1. Check NATS is running:
+#    curl http://localhost:8222/varz | jq .jetstream
+#
+# 2. Create a test stream:
+#    docker exec -it nats-consumer-lab nats stream add ORDERS \
+#      --subjects "orders.>" \
+#      --storage file \
+#      --replicas 1 \
+#      --retention limits \
+#      --max-msgs -1 \
+#      --max-bytes -1 \
+#      --max-age 1h \
+#      --max-msg-size -1 \
+#      --discard old \
+#      --dupe-window 2m
+#
+# 3. Publish test messages:
+#    docker exec -it nats-consumer-lab nats pub orders.new "order 1"
+#    docker exec -it nats-consumer-lab nats pub orders.new "order 2"
+#
+# 4. Create a consumer and fetch:
+#    docker exec -it nats-consumer-lab nats consumer add ORDERS test-consumer \
+#      --pull \
+#      --ack explicit \
+#      --deliver all \
+#      --max-deliver 3 \
+#      --filter ""

@@ -1,11 +1,12 @@
 ---
 id: nats-core
 aliases: []
-tags: []
+tags:
+  - #nats
 backlinks: []
 created: 2026-01-06 15:20:16
 links: []
-modified: 2026-01-06 18:15:14
+modified: 2026-01-12 12:32:37
 status: reviewed
 ---
 
